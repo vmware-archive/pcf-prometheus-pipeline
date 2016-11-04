@@ -59,3 +59,16 @@ If the deployment was successful use ```bosh vms``` to find out the IP address o
 * https://NGINX:9090 to access Prometheus
 
 There is a number of ready to use Dashboards that you can import from [prometheus-boshrelease/src](https://github.com/cloudfoundry-community/prometheus-boshrelease/tree/master/src)
+
+## Grafana Plugins
+Currently only the core Grafana package is included in the BOSH release. If you want to install Grafana plugins you can do it the following way (this will install all officially supported plugins):
+```
+bosh ssh grafana
+sudo -s
+apt-get install jq git
+cd /var/vcap/store/grafana/plugins/
+wget https://raw.githubusercontent.com/grafana/grafana-plugin-repository/master/repo.json
+for plugin in `jq .plugins[].url repo.json  | tr -d '"'`; do git clone $plugin; done
+cd /var/vcap/bosh/bin/
+./monit restart grafana
+```
