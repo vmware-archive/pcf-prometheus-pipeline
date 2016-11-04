@@ -173,7 +173,7 @@ instance_groups:
           url: CHANGE_ME
           ca_cert: |+
             -----BEGIN CERTIFICATE-----
-            CHANGE_ME
+            /var/tempest/workspaces/default/root_ca_certificate from OpsManager
             -----END CERTIFICATE-----
   # - name: cadvisor
   #   release: prometheus

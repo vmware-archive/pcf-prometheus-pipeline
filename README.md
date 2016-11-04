@@ -8,7 +8,7 @@ This how-to has been tested on PCF 1.8. The manifest file is appropriate for clo
 bosh --ca-cert root_ca_certificate target <YOUR_BOSH_HOST>
 bosh upload release https://bosh.io/d/github.com/cloudfoundry-community/prometheus-boshrelease
 ```
-You can find root_ca_certificate file on the OpsManager VM in
+You can find root_ca_certificate file on the OpsManager VM in ```/var/tempest/workspaces/default/root_ca_certificate```.
 
 ## Create UAA clients
 Key components of this BOSH release are [firehose_exporter](https://github.com/cloudfoundry-community/firehose_exporter) and [bosh_exporter](https://github.com/cloudfoundry-community/bosh_exporter) which retrieve the data (from CF firehose and BOSH director respectively) and present it in the Prometheus format. Each of those exporters require credentials to access the data source. IMPORTANT: these users have to be created in two different UAA instances. For the firehose credentials, you use the main UAA instance of a Cloud Foundry deployment (where you would normally create users/clients, such as those for any other nozzles). For bosh_exporter however, you need to use the UAA which is colocated with the BOSH Director.
