@@ -55,7 +55,7 @@ bosh -n deploy
 
 ## Connect to Grafana
 If the deployment was successful use ```bosh vms``` to find out the IP address of your nginx server. Then connect:
-* https://<YOUR NGINX SERVER>:3000 to access Grafana (default credentials: admin/admin)
-* https://<YOUR NGINX SERVER>:9090 to access Prometheus
+* https://NGINX:3000 to access Grafana (default credentials: admin/admin)
+* https://NGINX:9090 to access Prometheus
 
 There is a number of ready to use Dashboards that you can import from [prometheus-boshrelease/src](https://github.com/cloudfoundry-community/prometheus-boshrelease/tree/master/src)
