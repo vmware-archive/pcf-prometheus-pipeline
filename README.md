@@ -17,15 +17,15 @@ Key components of this BOSH release are [firehose_exporter](https://github.com/c
 This process is explained here: https://github.com/cloudfoundry-community/firehose_exporter
 ```bash
 uaac target https://<YOUR UAA URL> --skip-ssl-validation
-uaac token owner get login admin
-Client secret:  OpsManager -> Director -> Credentials -> Uaa Login Client Credentials
-Password:  OpsManager -> Director -> Credentials -> Uaa Admin User Credentials
+uaac token owner get login -s UAA-LOGIN-CLIENT-PASSWORD
+User name:  admin
+Password:  UAA-ADMIN-CLIENT-PASSWORD
 uaac client add prometheus-bosh \
   --name prometheus-bosh \
   --secret prometheus-client-secret \
   --authorized_grant_types client_credentials,refresh_token \
-  --authorities bosh.admin \
-  --scope bosh.admin
+  --authorities bosh.read \
+  --scope bosh.read
 ```
 Edit name and secret values. You will need to put them in the manifest later.
 
