@@ -165,11 +165,11 @@ instance_groups:
     release: prometheus
     properties:
       bosh_exporter:
-        uaa:
-          url: https://CHANGE_ME:8443
-          client_id: CHANGE_ME
-          client_secret: CHANGE_ME
         bosh:
+          uaa:
+            url: https://CHANGE_ME:8443
+            client_id: CHANGE_ME
+            client_secret: CHANGE_ME
           url: CHANGE_ME
           ca_cert: |+
             -----BEGIN CERTIFICATE-----
@@ -210,8 +210,8 @@ instance_groups:
   #  release: prometheus
   - name: nats_exporter
     release: prometheus
-  - name: node_exporter
-    release: prometheus
+  #- name: node_exporter
+  #  release: prometheus
   #- name: postgres_exporter
   #  release: prometheus
   - name: pushgateway
