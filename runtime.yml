@@ -1,0 +1,9 @@
+releases:
+- name: prometheus
+  version: 11
+
+addons:
+- name: node_exporter
+  jobs:
+  - name: node_exporter
+    release: prometheus
