@@ -53,7 +53,7 @@ bosh -n deploy
 ```
 
 ## Deploy node_exporter on all nodes
-node_exporter is a core Prometheus exporter which provides detailed OS-level information. Using BOSH add-ons feature it's very easy to install node_exporter on all BOSH-provisioned VMs:
+node_exporter is a core Prometheus exporter which provides detailed OS-level information. Using BOSH add-ons feature it's very easy to install node_exporter on all BOSH-provisioned VMs. Take the example runtime.yml (adjust the prometheus release version if needed) and run:
 ```
 bosh update runtime-config runtime.yml
 bosh -n deploy
