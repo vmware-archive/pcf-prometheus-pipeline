@@ -65,7 +65,7 @@ If the deployment was successful use ```bosh vms``` to find out the IP address o
 * https://NGINX:3000 to access Grafana (default credentials: admin/admin)
 * https://NGINX:9090 to access Prometheus
 
-There is a number of ready to use Dashboards that you can import from [prometheus-boshrelease/src](https://github.com/cloudfoundry-community/prometheus-boshrelease/tree/master/src)
+There is a number of ready to use Dashboards that should install automatically. You can edit them in Grafana or create your own. They are coming from [prometheus-boshrelease/src](https://github.com/cloudfoundry-community/prometheus-boshrelease/tree/master/src).
 
 ## Grafana Plugins
 UPDATE: this section was written when prometheus-boshrelease didn't include any Grafana plugins. Currently (v11) there are some plugins included so you likely don't need to do that. However, this info can still be helpful if you need to use a plugin which is not included. Make sure the folder (/var/vcap/store/grafana/plugins/) is configured in Grafana though.
