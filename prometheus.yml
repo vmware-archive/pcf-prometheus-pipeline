@@ -34,7 +34,30 @@ instance_groups:
   jobs:
   - name: grafana
     release: prometheus
-
+  - name: bosh_dashboards
+    release: prometheus
+  - name: cloudfoundry_dashboards
+    release: prometheus
+  - name: system_dashboards
+    release: prometheus
+  properties:
+    grafana:
+      dashboards:
+        json:
+          enabled: true
+      prometheus:
+        dashboard_files:
+          - /var/vcap/packages/cloudfoundry_dashboards/cf_router.json
+          - /var/vcap/packages/cloudfoundry_dashboards/cf_uaa.json
+          - /var/vcap/packages/cloudfoundry_dashboards/diego_bbs_etcd.json
+          - /var/vcap/packages/cloudfoundry_dashboards/diego_health.json
+          - /var/vcap/packages/bosh_dashboards/bosh_deployments.json
+          - /var/vcap/packages/bosh_dashboards/bosh_jobs.json
+          - /var/vcap/packages/bosh_dashboards/bosh_overview.json
+          - /var/vcap/packages/bosh_dashboards/bosh_processes.json
+          - /var/vcap/packages/system_dashboards/system_disk_performance.json
+          - /var/vcap/packages/system_dashboards/system_disk_space.json
+          - /var/vcap/packages/system_dashboards/system_overview.json
 - name: alertmanager
   instances: 1
   vm_type: micro
