@@ -41,7 +41,6 @@ Password:  UAA-ADMIN-CLIENT-PASSWORD
 ```
 Edit name and secret values. You will need to put them in the manifest later.
 
-##
 ## Prepare your manifest based on the template from this repo
 * Copy prometheus.yml from this repo to your working directory
 * Edit CHANGE_ME placeholders (there are comments to help you find the right values)
@@ -53,6 +52,14 @@ bosh deployment prometheus.yml
 bosh -n deploy
 ```
 
+## Deploy node_exporter on all nodes
+node_exporter is a core Prometheus exporter which provides detailed OS-level information. Using BOSH add-ons feature it's very easy to install node_exporter on all BOSH-provisioned VMs. Take the example runtime.yml (adjust the prometheus release version if needed) and run:
+```
+bosh update runtime-config runtime.yml
+bosh -n deploy
+```
+Once that's done, any VM (re)created by BOSH will be running node_exporter. The manifest is already prepared to consume that data.
+
 ## Connect to Grafana
 If the deployment was successful use ```bosh vms``` to find out the IP address of your nginx server. Then connect:
 * https://NGINX:3000 to access Grafana (default credentials: admin/admin)
@@ -61,7 +68,9 @@ If the deployment was successful use ```bosh vms``` to find out the IP address o
 There is a number of ready to use Dashboards that you can import from [prometheus-boshrelease/src](https://github.com/cloudfoundry-community/prometheus-boshrelease/tree/master/src)
 
 ## Grafana Plugins
-Currently only the core Grafana package is included in the BOSH release. If you want to install Grafana plugins you can do it the following way (this will install all officially supported plugins):
+UPDATE: this section was written when prometheus-boshrelease didn't include any Grafana plugins. Currently (v11) there are some plugins included so you likely don't need to do that. However, this info can still be helpful if you need to use a plugin which is not included. Make sure the folder (/var/vcap/store/grafana/plugins/) is configured in Grafana though.
+
+If you want to install Grafana plugins you can do it the following way (this will install all officially supported plugins):
 ```
 bosh ssh grafana
 sudo -s
