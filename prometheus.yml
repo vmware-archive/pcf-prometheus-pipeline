@@ -125,9 +125,17 @@ instance_groups:
               - targets:
                 - localhost:9118
           - job_name: node
-            static_configs:
-              - targets:
-                - localhost:9100
+            file_sd_configs:
+              - files:
+                - /var/vcap/store/bosh_exporter/bosh_target_groups.json
+            relabel_configs:
+              - source_labels: [__meta_bosh_job_process_name]
+                regex: node_exporter
+                action: keep
+              - source_labels: [__address__]
+                regex: "(.*)"
+                target_label: __address__
+                replacement: "${1}:9100"
           - job_name: postgres_exporter
             static_configs:
               - targets:
@@ -175,6 +183,7 @@ instance_groups:
             -----BEGIN CERTIFICATE-----
             /var/tempest/workspaces/default/root_ca_certificate from OpsManager
             -----END CERTIFICATE-----
+          collectors: Deployments,Jobs,ServiceDiscovery
   # - name: cadvisor
   #   release: prometheus
   - name: collectd_exporter
