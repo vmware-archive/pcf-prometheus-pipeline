@@ -11,7 +11,7 @@ bosh upload release https://bosh.io/d/github.com/cloudfoundry-community/promethe
 You can find root_ca_certificate file on the OpsManager VM in ```/var/tempest/workspaces/default/root_ca_certificate```.
 
 ## Create UAA clients
-Key components of this BOSH release are [firehose_exporter](https://github.com/cloudfoundry-community/firehose_exporter) and [bosh_exporter](https://github.com/cloudfoundry-community/bosh_exporter) which retrieve the data (from CF firehose and BOSH director respectively) and present it in the Prometheus format. Each of those exporters require credentials to access the data source. IMPORTANT: these users have to be created in two different UAA instances. For the firehose credentials, you use the main UAA instance of a Cloud Foundry deployment (where you would normally create users/clients, such as those for any other nozzles). For bosh_exporter however, you need to use the UAA which is colocated with the BOSH Director.
+Key components of this BOSH release are [firehose_exporter](https://github.com/cloudfoundry-community/firehose_exporter),  [bosh_exporter](https://github.com/cloudfoundry-community/bosh_exporter) and [cf_exporter](https://github.com/cloudfoundry-community/cf_exporter/) which retrieve the data (from CF firehose, BOSH director and Cloud Controller API respectively) and present it in the Prometheus format. Each of those exporters require credentials to access the data source. IMPORTANT: these users have to be created in two different UAA instances. For the firehose and CF credentials, you use the main UAA instance of a Cloud Foundry deployment (where you would normally create users/clients, such as those for any other nozzles). For bosh_exporter however, you need to use the UAA which is colocated with the BOSH Director.
 
 ### Create client for firehose_exporter
 This process is explained here: https://github.com/cloudfoundry-community/firehose_exporter
@@ -23,6 +23,13 @@ uaac client add prometheus-firehose \
   --secret prometheus-client-secret \
   --authorized_grant_types client_credentials,refresh_token \
   --authorities doppler.firehose
+```
+Edit name and secret values. You will need to put them in the manifest later.
+
+
+### Create user for cf_exporter
+```bash
+uaac user add prometheus-cf --password prometheus-client-secret  --emails prometheus-cf
 ```
 Edit name and secret values. You will need to put them in the manifest later.
 
@@ -42,13 +49,15 @@ Password:  UAA-ADMIN-CLIENT-PASSWORD
 Edit name and secret values. You will need to put them in the manifest later.
 
 ## Prepare your manifest based on the template from this repo
-* Copy prometheus.yml from this repo to your working directory
-* Edit CHANGE_ME placeholders (there are comments to help you find the right values)
-* Edit cloud-config references accordingly (networks, azs, vm_type)
+Since prometheus.yml is changing often to add more functionality (or to adjust it to the change in the bosh release itself) you don't have to edit it. Local configuration which needs to be adjusted is in the local.yml file. Edit URLs and credentials and merge it with prometheus.yml. So the steps are:
 
+* Copy prometheus.yml and local.yml from this repo to your working directory
+* Edit CHANGE_ME and other placeholders
+* 
 Once the manifest is ready, deploy:
 ```
-bosh deployment prometheus.yml
+spruce merge prometheus.yml local.yml > manifest.yml
+bosh deployment manifest.yml
 bosh -n deploy
 ```
 
