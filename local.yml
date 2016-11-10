@@ -1,0 +1,41 @@
+---
+name: prometheus
+
+director_uuid: CHANGE_ME
+instance_groups:
+- name: prometheus
+  jobs:
+  - name: bosh_exporter
+    properties:
+      bosh_exporter:
+        bosh:
+          uaa:
+            url: https://BOSH_DIRECTOR:8443
+            client_id: prometheus-bosh
+            client_secret: prometheus-client-secret
+          url: https://BOSH_DIRECTOR
+          ca_cert: |+
+            -----BEGIN CERTIFICATE-----
+            -----END CERTIFICATE-----
+  - name: firehose_exporter
+    release: prometheus
+    properties:
+      firehose_exporter:
+        uaa:
+          url: https://uaa.SYSTEM_DOMAIN
+          client_id: prometheus-firehose
+          client_secret: prometheus-client-secret
+        doppler:
+          url: wss://doppler.SYSTEM_DOMAIN
+        web:
+          port: 9186
+        skip_ssl_verify: true
+  - name: cf_exporter
+    release: prometheus
+    properties:
+      cf_exporter:
+        cf:
+          api_url: https://api.SYSTEM_DOMAIN
+          username: prometheus-cf
+          password: prometheus-client-secret
+        skip_ssl_verify: true
