@@ -40,6 +40,8 @@ instance_groups:
     release: prometheus
   - name: system_dashboards
     release: prometheus
+  - name: mysql_dashboards
+    release: prometheus
   properties:
     grafana:
       dashboards:
@@ -60,6 +62,16 @@ instance_groups:
           - /var/vcap/packages/system_dashboards/system_disk_performance.json
           - /var/vcap/packages/system_dashboards/system_disk_space.json
           - /var/vcap/packages/system_dashboards/system_overview.json
+          - /var/vcap/packages/mysql_dashboards/mysql_innodb.json
+          - /var/vcap/packages/mysql_dashboards/mysql_innodb_advanced.json
+          - /var/vcap/packages/mysql_dashboards/mysql_myisam.json
+          - /var/vcap/packages/mysql_dashboards/mysql_overview.json
+          - /var/vcap/packages/mysql_dashboards/mysql_performance_schema.json
+          - /var/vcap/packages/mysql_dashboards/mysql_query_response.json
+          - /var/vcap/packages/mysql_dashboards/mysql_replication.json
+          - /var/vcap/packages/mysql_dashboards/mysql_table.json
+          - /var/vcap/packages/mysql_dashboards/mysql_tokudb.json
+          - /var/vcap/packages/mysql_dashboards/mysql_user_statistics.json
 - name: alertmanager
   instances: 1
   vm_type: micro
@@ -146,9 +158,17 @@ instance_groups:
               - targets:
                 - localhost:9101
           - job_name: mysql
-            static_configs:
-              - targets:
-                - localhost:9104
+            file_sd_configs:
+              - files:
+                - /var/vcap/store/bosh_exporter/bosh_target_groups.json
+            relabel_configs:
+              - source_labels: [__meta_bosh_job_process_name]
+                regex: mysqld_exporter
+                action: keep
+              - source_labels: [__address__]
+                regex: "(.*)"
+                target_label: __address__
+                replacement: "${1}:9104"
           - job_name: nats
             static_configs:
               - targets:
@@ -244,8 +264,8 @@ instance_groups:
     release: prometheus
   #- name: kube_state_metrics_exporter
   #  release: prometheus
-  #- name: mysqld_exporter
-  #  release: prometheus
+  - name: mysqld_exporter
+    release: prometheus
   - name: nats_exporter
     release: prometheus
   #- name: node_exporter

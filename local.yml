@@ -39,3 +39,11 @@ instance_groups:
           username: prometheus-cf
           password: prometheus-client-secret
         skip_ssl_verify: true
+  - name: mysqld_exporter
+    release: prometheus
+    properties:
+      mysqld_exporter:
+        mysql:
+          address: CHANGE_ME
+          username: CHANGE_ME
+          password: CHANGE_ME
