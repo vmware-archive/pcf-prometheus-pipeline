@@ -88,6 +88,10 @@ instance_groups:
           receiver: default-receiver
         receivers:
           - name: default-receiver
+  - name: bosh_alerts
+    release: prometheus
+  - name: cloudfoundry_alerts
+    release: prometheus
 
 - name: prometheus
   instances: 1
