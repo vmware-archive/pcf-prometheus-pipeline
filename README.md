@@ -2,6 +2,8 @@
 
 This how-to has been tested on PCF 1.8. The manifest file is appropriate for cloud-config enabled environments.
 
+The manifest example is split into the main part which should not require any customization (at least initially) and the local configuration which has to be adjusted. To merge those files we are using the new [BOSH CLI (beta)](https://github.com/cloudfoundry/bosh-cli). Documentation is available [here](http://bosh.io/docs/cli-v2.html). It is perfectly possible to use this CLI for all other steps involving a BOSH CLI.
+
 ## Upload the bosh release to your BOSH Director
 
 ```
@@ -49,14 +51,16 @@ Password:  UAA-ADMIN-CLIENT-PASSWORD
 Edit name and secret values. You will need to put them in the manifest later.
 
 ## Prepare your manifest based on the template from this repo
-Since prometheus.yml is changing often to add more functionality (or to adjust it to the change in the bosh release itself) you don't have to edit it. Local configuration which needs to be adjusted is in the local.yml file. Edit URLs and credentials and merge it with prometheus.yml. So the steps are:
+Since prometheus.yml is changing often to add more functionality (or to adjust it to the change in the bosh release itself) you don't have to edit it. Local configuration which needs to be adjusted is in the local.yml file. Edit URLs, credentials and everything else you need and then merge it with prometheus.yml. So the steps are:
 
 * Copy prometheus.yml and local.yml from this repo to your working directory
 * Edit CHANGE_ME and other placeholders
-* 
-Once the manifest is ready, deploy:
+* Merge the two files:
 ```
-spruce merge prometheus.yml local.yml > manifest.yml
+bosh-cli interpolate prometheus.yml -l local.yml > manifest.yml
+```
+* Once the manifest is ready, deploy:
+```
 bosh deployment manifest.yml
 bosh -n deploy
 ```
