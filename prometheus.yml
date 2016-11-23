@@ -1,8 +1,7 @@
 ---
 name: prometheus
 
-# replace with `bosh status --uuid`
-director_uuid: CHANGE_ME
+director_uuid: ((director_uuid))
 
 releases:
 - name: prometheus
@@ -16,21 +15,23 @@ stemcells:
 instance_groups:
 - name: nginx
   instances: 1
-  vm_type: nano
+  vm_type: ((nginx.vm_type))
   stemcell: trusty
-  azs: [env1]
-  networks: [{name: VMNetwork}]
+  azs: ((azs))
+  networks: [{name: ((network_name))}]
   jobs:
   - name: nginx
     release: prometheus
+  properties:
+    nginx: ((nginx.local_properties))
 
 - name: grafana
   instances: 1
-  vm_type: micro
+  vm_type: ((grafana.vm_type))
   stemcell: trusty
-  persistent_disk_type: 1024
-  azs: [env1]
-  networks: [{name: VMNetwork}]
+  persistent_disk_type: ((grafana.persistent_disk_type))
+  azs: ((azs))
+  networks: [{name: ((network_name))}]
   jobs:
   - name: grafana
     release: prometheus
@@ -74,11 +75,11 @@ instance_groups:
           - /var/vcap/packages/mysql_dashboards/mysql_user_statistics.json
 - name: alertmanager
   instances: 1
-  vm_type: micro
+  vm_type: ((alertmanager.vm_type))
   stemcell: trusty
-  persistent_disk_type: 1024
-  azs: [env1]
-  networks: [{name: VMNetwork}]
+  persistent_disk_type: ((alertmanager.persistent_disk_type))
+  azs: ((azs))
+  networks: [{name: ((network_name))}]
   jobs:
   - name: alertmanager
     release: prometheus
@@ -95,11 +96,11 @@ instance_groups:
 
 - name: prometheus
   instances: 1
-  vm_type: micro
+  vm_type: ((prometheus.vm_type))
   stemcell: trusty
-  persistent_disk_type: 1024
-  azs: [env1]
-  networks: [{name: VMNetwork}]
+  persistent_disk_type: ((prometheus.persistent_disk_type))
+  azs: ((azs))
+  networks: [{name: ((network_name))}]
   jobs:
   - name: prometheus
     release: prometheus
@@ -153,10 +154,10 @@ instance_groups:
           #  static_configs:
           #    - targets:
           #      - localhost:9171
-          - job_name: graphite
-            static_configs:
-              - targets:
-                - localhost:9108
+          #- job_name: graphite
+          #  static_configs:
+          #    - targets:
+          #      - localhost:9108
           - job_name: haproxy
             static_configs:
               - targets:
@@ -189,10 +190,10 @@ instance_groups:
                 regex: "(.*)"
                 target_label: __address__
                 replacement: "${1}:9100"
-          - job_name: postgres_exporter
-            static_configs:
-              - targets:
-                - localhost:9113
+          #- job_name: postgres_exporter
+          #  static_configs:
+          #    - targets:
+          #      - localhost:9113
           - job_name: prometheus
             static_configs:
               - targets:
@@ -228,34 +229,48 @@ instance_groups:
       bosh_exporter:
         bosh:
           uaa:
-            url: https://CHANGE_ME:8443
-            client_id: CHANGE_ME
-            client_secret: CHANGE_ME
-          url: CHANGE_ME
-          ca_cert: |+
-            -----BEGIN CERTIFICATE-----
-            /var/tempest/workspaces/default/root_ca_certificate from OpsManager
-            -----END CERTIFICATE-----
+            url: ((bosh_exporter.bosh.uaa.url))
+            client_id: ((bosh_exporter.bosh.uaa.client_id))
+            client_secret: ((bosh_exporter.bosh.uaa.client_secret))
+          url: ((bosh_exporter.bosh.url))
+          ca_cert: ((bosh_exporter.bosh.ca_cert))
           collectors: Deployments,Jobs,ServiceDiscovery
+  - name: cf_exporter
+    release: prometheus
+    properties:
+      cf_exporter:
+        cf:
+          api_url: ((cf_exporter.cf.api_url))
+          username: ((cf_exporter.cf.username))
+          password: ((cf_exporter.cf.password))
+        skip_ssl_verify: true
+  - name: mysqld_exporter
+    release: prometheus
+    properties:
+      mysqld_exporter:
+        mysql:
+          address: ((mysqld_exporter.mysql.address))
+          username: ((mysqld_exporter.mysql.username))
+          password: ((mysqld_exporter.mysql.password))
+  - name: firehose_exporter
+    release: prometheus
+    properties:
+      firehose_exporter:
+        uaa:
+          url: ((firehose_exporter.uaa.url))
+          client_id: ((firehose_exporter.uaa.client_id))
+          client_secret: ((firehose_exporter.uaa.client_secret))
+        doppler:
+          url: ((firehose_exporter.doppler.url))
+        web:
+          port: 9186
+        skip_ssl_verify: true
   # - name: cadvisor
   #   release: prometheus
   - name: collectd_exporter
     release: prometheus
   - name: consul_exporter
     release: prometheus
-  - name: firehose_exporter
-    release: prometheus
-    properties:
-      firehose_exporter:
-        uaa:
-          url: https://uaa.CHANGE_ME
-          client_id: CHANGE_ME
-          client_secret: CHANGE_ME
-        doppler:
-          url: wss://CHANGE_ME
-        web:
-          port: 9186
-        skip_ssl_verify: true
   - name: github_exporter
     release: prometheus
     properties:
@@ -268,8 +283,6 @@ instance_groups:
     release: prometheus
   #- name: kube_state_metrics_exporter
   #  release: prometheus
-  - name: mysqld_exporter
-    release: prometheus
   - name: nats_exporter
     release: prometheus
   #- name: node_exporter
