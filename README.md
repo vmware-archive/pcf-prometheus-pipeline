@@ -50,6 +50,17 @@ Password:  UAA-ADMIN-CLIENT-PASSWORD
 ```
 Edit name and secret values. You will need to put them in the manifest later.
 
+## Create MySQL user
+Given that PCF uses MySQL internally you should also monitor it. To do that, create a MySQL user and configure it in local.yml later.
+```
+bosh ssh mysql
+mysql -p
+Enter password: (OpsManager -> ERT -> Credentials -> Mysql Admin Credentials)
+CREATE USER 'exporter' IDENTIFIED BY 'CHANGE_ME';
+GRANT PROCESS, REPLICATION CLIENT, SELECT ON *.* TO 'exporter' WITH MAX_USER_CONNECTIONS 3;
+```
+More information about mysqld_exporter is available [here](https://github.com/prometheus/mysqld_exporter).
+
 ## Prepare your manifest based on the template from this repo
 Since prometheus.yml is changing often to add more functionality (or to adjust it to the change in the bosh release itself) you don't have to edit it. Local configuration which needs to be adjusted is in the local.yml file. Edit URLs, credentials and everything else you need and then merge it with prometheus.yml. So the steps are:
 
