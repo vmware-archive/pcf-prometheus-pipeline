@@ -25,7 +25,7 @@ bosh_exporter:
   bosh:
     uaa:
       url: https://BOSH_DIRECTOR:8443
-      client_id: prometheus-bosh-read
+      client_id: prometheus-bosh
       client_secret: prometheus-client-secret
     url: https://BOSH_DIRECTOR
     ca_cert: |
@@ -46,7 +46,7 @@ firehose_exporter:
 cf_exporter:
   cf:
     api_url: https://api.SYSTEM_DOMAIN
-    username: prometheus-cf-user
+    username: prometheus-cf
     password: prometheus-client-secret
   skip_ssl_verify: true
 
