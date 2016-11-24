@@ -32,6 +32,7 @@ Edit name and secret values. You will need to put them in the manifest later.
 ### Create user for cf_exporter
 ```bash
 uaac user add prometheus-cf --password prometheus-client-secret  --emails prometheus-cf
+uaac member add cloud_controller.admin prometheus-cf
 ```
 Edit name and secret values. You will need to put them in the manifest later.
 
