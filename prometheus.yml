@@ -18,7 +18,9 @@ instance_groups:
   vm_type: ((nginx.vm_type))
   stemcell: trusty
   azs: ((azs))
-  networks: [{name: ((network_name))}]
+  networks:
+    - name: ((network_name))
+      static_ips: ((nginx.static_ips))
   jobs:
   - name: nginx
     release: prometheus

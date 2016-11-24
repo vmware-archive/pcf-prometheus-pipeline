@@ -6,10 +6,12 @@ network_name: CHANGE_ME
 
 nginx:
   vm_type: nano
+  static_ips: 10.0.0.1
   local_properties:
     ssl_only: false
     grafana:
       https_port: 443
+
 
 grafana:
   vm_type: micro
