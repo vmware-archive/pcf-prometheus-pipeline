@@ -55,7 +55,7 @@ Edit name and secret values. You will need to put them in the manifest later.
 Given that PCF uses MySQL internally you should also monitor it. To do that, create a MySQL user and configure it in local.yml later.
 ```
 bosh ssh mysql
-mysql -p
+mysql -u root -p
 Enter password: (OpsManager -> ERT -> Credentials -> Mysql Admin Credentials)
 CREATE USER 'exporter' IDENTIFIED BY 'CHANGE_ME';
 GRANT PROCESS, REPLICATION CLIENT, SELECT ON *.* TO 'exporter' WITH MAX_USER_CONNECTIONS 3;
