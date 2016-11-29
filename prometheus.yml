@@ -20,7 +20,7 @@ instance_groups:
   azs: ((azs))
   networks:
     - name: ((network_name))
-      static_ips: ((nginx.static_ips))
+      #static_ips: ((nginx.static_ips))
   jobs:
   - name: nginx
     release: prometheus
@@ -52,29 +52,26 @@ instance_groups:
           enabled: true
       prometheus:
         dashboard_files:
-          - /var/vcap/packages/cloudfoundry_dashboards/cf_apps_metrics.json
-          - /var/vcap/packages/cloudfoundry_dashboards/cf_summary.json
+          - /var/vcap/packages/cloudfoundry_dashboards/cf_apps_latency.json
+          - /var/vcap/packages/cloudfoundry_dashboards/cf_apps_requests.json
+          - /var/vcap/packages/cloudfoundry_dashboards/cf_apps_response_size.json
+          - /var/vcap/packages/cloudfoundry_dashboards/cf_apps_system.json
+          - /var/vcap/packages/cloudfoundry_dashboards/cf_bbs.json
+          - /var/vcap/packages/cloudfoundry_dashboards/cf_cc.json
+          - /var/vcap/packages/cloudfoundry_dashboards/cf_cells_capacity.json
+          - /var/vcap/packages/cloudfoundry_dashboards/cf_diego_auctions.json
+          - /var/vcap/packages/cloudfoundry_dashboards/cf_diego_health.json
+          - /var/vcap/packages/cloudfoundry_dashboards/cf_etcd.json
+          - /var/vcap/packages/cloudfoundry_dashboards/cf_etcd_operations.json
+          - /var/vcap/packages/cloudfoundry_dashboards/cf_garden_linux.json
+          - /var/vcap/packages/cloudfoundry_dashboards/cf_lrps_tasks.json
+          - /var/vcap/packages/cloudfoundry_dashboards/cf_route_emitter.json
           - /var/vcap/packages/cloudfoundry_dashboards/cf_router.json
+          - /var/vcap/packages/cloudfoundry_dashboards/cf_router_memory.json
+          - /var/vcap/packages/cloudfoundry_dashboards/cf_summary.json
           - /var/vcap/packages/cloudfoundry_dashboards/cf_uaa.json
-          - /var/vcap/packages/cloudfoundry_dashboards/diego_bbs_etcd.json
-          - /var/vcap/packages/cloudfoundry_dashboards/diego_health.json
-          - /var/vcap/packages/bosh_dashboards/bosh_deployments.json
-          - /var/vcap/packages/bosh_dashboards/bosh_jobs.json
-          - /var/vcap/packages/bosh_dashboards/bosh_overview.json
-          - /var/vcap/packages/bosh_dashboards/bosh_processes.json
-          - /var/vcap/packages/system_dashboards/system_disk_performance.json
-          - /var/vcap/packages/system_dashboards/system_disk_space.json
-          - /var/vcap/packages/system_dashboards/system_overview.json
-          - /var/vcap/packages/mysql_dashboards/mysql_innodb.json
-          - /var/vcap/packages/mysql_dashboards/mysql_innodb_advanced.json
-          - /var/vcap/packages/mysql_dashboards/mysql_myisam.json
-          - /var/vcap/packages/mysql_dashboards/mysql_overview.json
-          - /var/vcap/packages/mysql_dashboards/mysql_performance_schema.json
-          - /var/vcap/packages/mysql_dashboards/mysql_query_response.json
-          - /var/vcap/packages/mysql_dashboards/mysql_replication.json
-          - /var/vcap/packages/mysql_dashboards/mysql_table.json
-          - /var/vcap/packages/mysql_dashboards/mysql_tokudb.json
-          - /var/vcap/packages/mysql_dashboards/mysql_user_statistics.json
+          - /var/vcap/packages/cloudfoundry_dashboards/prometheus_cf_exporter.json
+          - /var/vcap/packages/cloudfoundry_dashboards/prometheus_firehose_exporter.json
 - name: alertmanager
   instances: 1
   vm_type: ((alertmanager.vm_type))
