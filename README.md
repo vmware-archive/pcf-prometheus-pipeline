@@ -18,7 +18,7 @@ Key components of this BOSH release are [firehose_exporter](https://github.com/c
 ### Create client for firehose_exporter
 This process is explained here: https://github.com/cloudfoundry-community/firehose_exporter
 ```bash
-uaac target https://<YOUR UAA URL> --skip-ssl-validation
+uaac target https://uaa.SYSTEM_DOMAIN --skip-ssl-validation
 uaac token client get <YOUR ADMIN CLIENT ID> -s <YOUR ADMIN CLIENT SECRET>
 uaac client add prometheus-firehose \
   --name prometheus-firehose \
@@ -38,7 +38,7 @@ Edit name and secret values. You will need to put them in the manifest later.
 
 ### Create client for bosh_exporter
 ```bash
-uaac target https://<YOUR BOSH URL>:8443 --skip-ssl-validation
+uaac target https://BOSH_DIRECTOR:8443 --skip-ssl-validation
 uaac token owner get login -s UAA-LOGIN-CLIENT-PASSWORD
 User name:  admin
 Password:  UAA-ADMIN-CLIENT-PASSWORD
