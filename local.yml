@@ -6,21 +6,24 @@ network_name: CHANGE_ME
 
 nginx:
   vm_type: nano
+  vm_password: echo -n 'YOUR_PASSWORD' | mkpasswd --method=sha-512 --password-fd=0
   static_ips: 10.0.0.1
   local_properties:
     ssl_only: false
     grafana:
       https_port: 443
 
-
 grafana:
   vm_type: micro
+  vm_password: echo -n 'YOUR_PASSWORD' | mkpasswd --method=sha-512 --password-fd=0
   persistent_disk_type: 1024
 alertmanager:
   vm_type: micro
+  vm_password: echo -n 'YOUR_PASSWORD' | mkpasswd --method=sha-512 --password-fd=0
   persistent_disk_type: 1024
 prometheus:
   vm_type: micro
+  vm_password: echo -n 'YOUR_PASSWORD' | mkpasswd --method=sha-512 --password-fd=0
   persistent_disk_type: 1024
 
 bosh_exporter:

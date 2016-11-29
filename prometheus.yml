@@ -26,6 +26,9 @@ instance_groups:
     release: prometheus
   properties:
     nginx: ((nginx.local_properties))
+  env:
+    bosh:
+      password: ((nginx.vm_password))
 
 - name: grafana
   instances: 1
@@ -72,6 +75,10 @@ instance_groups:
           - /var/vcap/packages/cloudfoundry_dashboards/cf_uaa.json
           - /var/vcap/packages/cloudfoundry_dashboards/prometheus_cf_exporter.json
           - /var/vcap/packages/cloudfoundry_dashboards/prometheus_firehose_exporter.json
+  env:
+    bosh:
+      password: ((grafana.vm_password))
+
 - name: alertmanager
   instances: 1
   vm_type: ((alertmanager.vm_type))
@@ -92,6 +99,9 @@ instance_groups:
     release: prometheus
   - name: cloudfoundry_alerts
     release: prometheus
+  env:
+    bosh:
+      password: ((alertmanager.vm_password))
 
 - name: prometheus
   instances: 1
@@ -296,6 +306,10 @@ instance_groups:
     release: prometheus
   - name: statsd_exporter
     release: prometheus
+  env:
+    bosh:
+      password: ((prometheus.vm_password))
+
 
 update:
   canaries: 1
