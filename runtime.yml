@@ -1,6 +1,6 @@
 releases:
 - name: prometheus
-  version: 12.0.1
+  version: 12.2.0
 
 addons:
 - name: node_exporter
