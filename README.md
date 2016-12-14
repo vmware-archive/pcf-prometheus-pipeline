@@ -39,9 +39,9 @@ Edit name and secret values. You will need to put them in the manifest later.
 ### Create client for bosh_exporter
 ```bash
 uaac target https://BOSH_DIRECTOR:8443 --skip-ssl-validation
-uaac token owner get login -s UAA-LOGIN-CLIENT-PASSWORD
+uaac token owner get login -s UAA-LOGIN-CLIENT-CREDENTIALS
 User name:  admin
-Password:  UAA-ADMIN-CLIENT-PASSWORD
+Password:  UAA-ADMIN-CLIENT-CREDENTIALS
   uaac client add prometheus-bosh \
   --name prometheus-bosh \
   --secret prometheus-client-secret \
