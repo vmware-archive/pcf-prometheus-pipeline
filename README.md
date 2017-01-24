@@ -76,6 +76,10 @@ bosh-cli interpolate prometheus.yml -l local.yml > manifest.yml
 bosh deployment manifest.yml
 bosh -n deploy
 ```
+To generate VM passwords you can use:
+```
+ruby -e 'require "securerandom"; require "unix_crypt"; printf("%s\n", UnixCrypt::SHA512.build(SecureRandom.hex(16), SecureRandom.hex(8)))'
+```
 
 ## Deploy node_exporter on all nodes
 node_exporter is a core Prometheus exporter which provides detailed OS-level information. Using BOSH add-ons feature it's very easy to install node_exporter on all BOSH-provisioned VMs. Take the example runtime.yml (adjust the prometheus release version if needed) and run:
