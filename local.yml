@@ -58,5 +58,5 @@ cf_exporter:
 mysqld_exporter:
   mysql:
     address: CHANGE_ME
-    username: CHANGE_ME
+    username: exporter
     password: CHANGE_ME
