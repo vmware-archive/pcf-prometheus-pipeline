@@ -24,7 +24,7 @@ alertmanager:
 prometheus:
   vm_type: micro
   vm_password: echo -n 'YOUR_PASSWORD' | mkpasswd --method=sha-512 --password-fd=0
-  persistent_disk_type: 4096
+  persistent_disk_type: 5120
 
 bosh_exporter:
   bosh:
