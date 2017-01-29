@@ -110,3 +110,26 @@ for plugin in `jq .plugins[].url repo.json  | tr -d '"'`; do git clone $plugin; 
 cd /var/vcap/bosh/bin/
 ./monit restart grafana
 ```
+
+## Alertmanager
+The `prometheus-boshrelease` does include some predefined alerts for CloudFoundry as well as for BOSH. You can find the alert definitions in [prometheus-boshrelease/src](https://github.com/cloudfoundry-community/prometheus-boshrelease/tree/master/src). Check the `*.alerts` rule files in the corresponding folders. If you create new alerts make sure to add them to the `prometheus.yml` -  the path to the alert rule file as well as a job release for additional new exporters.
+Access the AlertManager to see active alerts or slience them:
+* https://NGINX:9093
+All configured rules as well as their current state can be viewed by accessing Prometheus:
+* https://NGINX:9090/alerts
+Below and example config for `prometheus.yml` to send alerts to slack:
+```
+- name: alertmanager
+    release: prometheus
+    properties:
+      alertmanager:
+        receivers:
+          - name: default-receiver
+            slack_configs:
+            - api_url: https://hooks.slack.com/services/....
+              channel: 'slack-channel'
+              send_resolved: true
+              pretext: "text before the actual alert message"
+        route:
+          receiver: default-receiver
+```
