@@ -115,8 +115,10 @@ cd /var/vcap/bosh/bin/
 The `prometheus-boshrelease` does include some predefined alerts for CloudFoundry as well as for BOSH. You can find the alert definitions in [prometheus-boshrelease/src](https://github.com/cloudfoundry-community/prometheus-boshrelease/tree/master/src). Check the `*.alerts` rule files in the corresponding folders. If you create new alerts make sure to add them to the `prometheus.yml` -  the path to the alert rule file as well as a job release for additional new exporters.
 Access the AlertManager to see active alerts or silence them:
 * https://NGINX:9093
+
 All configured rules as well as their current state can be viewed by accessing Prometheus:
 * https://NGINX:9090/alerts
+
 Below and example config for `prometheus.yml` to send alerts to slack:
 ```
 - name: alertmanager
