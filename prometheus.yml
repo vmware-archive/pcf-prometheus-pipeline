@@ -111,14 +111,10 @@ instance_groups:
     release: prometheus
     properties:
       alertmanager:
-        route:
-          receiver: default-receiver
         receivers:
           - name: default-receiver
-  - name: bosh_alerts
-    release: prometheus
-  - name: cloudfoundry_alerts
-    release: prometheus
+        route:
+          receiver: default-receiver
   env:
     bosh:
       password: ((alertmanager.vm_password))
@@ -135,6 +131,12 @@ instance_groups:
     release: prometheus
     properties:
       prometheus:
+        rule_files:
+          - /var/vcap/jobs/bosh_alerts/packages/bosh_alerts/bosh_jobs.alerts
+          - /var/vcap/jobs/bosh_alerts/packages/bosh_alerts/bosh_exporter.alerts
+          - /var/vcap/jobs/bosh_alerts/packages/bosh_alerts/bosh_processes.alerts
+          - /var/vcap/jobs/cloudfoundry_alerts/packages/cloudfoundry_alerts/cf_routes.alerts
+          - /var/vcap/jobs/cloudfoundry_alerts/packages/cloudfoundry_alerts/diego.alerts
         scrape_configs:
           - job_name: blackbox
             metrics_path: /probe
@@ -243,6 +245,10 @@ instance_groups:
             static_configs:
               - targets:
                 - localhost:9102
+  - name: bosh_alerts
+    release: prometheus
+  - name: cloudfoundry_alerts
+    release: prometheus
   - name: blackbox_exporter
     release: prometheus
     properties:
