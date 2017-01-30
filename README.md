@@ -135,3 +135,8 @@ Below and example config for `prometheus.yml` to send alerts to slack:
         route:
           receiver: default-receiver
 ```
+To check your AlertManager configuration you can execute:
+```
+curl -H "Content-Type: application/json" -d '[{"labels":{"alertname":"TestAlert1"}}]' <alertmanager>:9093/api/v1/alerts
+```
+This should trigger a test alert.
