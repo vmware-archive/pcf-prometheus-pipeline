@@ -1,9 +1,9 @@
 releases:
-- name: prometheus
-  version: 12.2.0
+- name: node-exporter
+  version: 1.0.0
 
 addons:
 - name: node_exporter
   jobs:
   - name: node_exporter
-    release: prometheus
+    release: node-exporter

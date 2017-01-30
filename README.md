@@ -4,11 +4,12 @@ This how-to has been tested on PCF 1.8. The manifest file is appropriate for clo
 
 The manifest example is split into the main part which should not require any customization (at least initially) and the local configuration which has to be adjusted. To merge those files we are using the new [BOSH CLI (beta)](https://github.com/cloudfoundry/bosh-cli). Documentation is available [here](http://bosh.io/docs/cli-v2.html). It is perfectly possible to use this CLI for all other steps involving a BOSH CLI.
 
-## Upload the bosh release to your BOSH Director
+## Upload the bosh releases to your BOSH Director
 
 ```
 bosh --ca-cert root_ca_certificate target <YOUR_BOSH_HOST>
 bosh upload release https://bosh.io/d/github.com/cloudfoundry-community/prometheus-boshrelease
+bosh upload release https://github.com/cloudfoundry-community/node-exporter-boshrelease/releases/download/v1.0.0/node-exporter-1.0.0.tgz
 ```
 You can find root_ca_certificate file on the OpsManager VM in ```/var/tempest/workspaces/default/root_ca_certificate```.
 
