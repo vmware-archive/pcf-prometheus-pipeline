@@ -54,6 +54,8 @@ instance_groups:
     release: prometheus
   - name: probe_dashboards
     release: prometheus
+  - name: prometheus_dashboards
+    release: prometheus
   properties:
     grafana:
       dashboards:
@@ -113,10 +115,6 @@ instance_groups:
           - /var/vcap/packages/prometheus_dashboards/prometheus_scrapes_notifications.json
           - /var/vcap/packages/prometheus_dashboards/prometheus_storage.json
           - /var/vcap/packages/prometheus_dashboards/prometheus_summary.json
-          - /var/vcap/packages/rabbitmq_dashboards/rabbitmq_exchanges.json
-          - /var/vcap/packages/rabbitmq_dashboards/rabbitmq_overview.json
-          - /var/vcap/packages/rabbitmq_dashboards/rabbitmq_queues.json
-          - /var/vcap/packages/redis_dashboards/redis_overview.json
           - /var/vcap/packages/system_dashboards/bosh_system_disk_performance.json
           - /var/vcap/packages/system_dashboards/bosh_system_disk_space.json
           - /var/vcap/packages/system_dashboards/bosh_system_overview.json
