@@ -5,7 +5,7 @@ azs:
 network_name: CHANGE_ME
 
 nginx:
-  vm_type: nano
+  vm_type: micro
   vm_password: echo -n 'YOUR_PASSWORD' | mkpasswd --method=sha-512 --password-fd=0
   static_ips: 10.0.0.1
   local_properties:
