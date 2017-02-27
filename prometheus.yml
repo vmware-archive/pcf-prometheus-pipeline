@@ -305,6 +305,8 @@ instance_groups:
           url: ((bosh_exporter.bosh.url))
           ca_cert: ((bosh_exporter.bosh.ca_cert))
           collectors: Deployments,Jobs,ServiceDiscovery
+        metrics:
+          environment: cf
   - name: cf_exporter
     release: prometheus
     properties:
@@ -313,6 +315,8 @@ instance_groups:
           api_url: ((cf_exporter.cf.api_url))
           username: ((cf_exporter.cf.username))
           password: ((cf_exporter.cf.password))
+        metrics:
+          environment: cf
         skip_ssl_verify: true
   - name: mysqld_exporter
     release: prometheus
@@ -334,6 +338,8 @@ instance_groups:
           url: ((firehose_exporter.doppler.url))
         web:
           port: 9186
+        metrics:
+          environment: cf
         skip_ssl_verify: true
   # - name: cadvisor
   #   release: prometheus
