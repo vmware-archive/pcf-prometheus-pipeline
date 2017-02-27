@@ -133,6 +133,21 @@ instance_groups:
   azs: ((azs))
   networks: [{name: ((network_name))}]
   jobs:
+  - name: bosh_alerts
+    release: prometheus
+  - name: cloudfoundry_alerts
+    release: prometheus
+  - name: mysql_alerts
+    release: prometheus
+  - name: p_rabbitmq_alerts
+    release: prometheus
+  - name: p_redis_alerts
+    release: prometheus
+  - name: probe_alerts
+    release: prometheus
+  - name: prometheus_alerts
+    release: prometheus
+
   - name: alertmanager
     release: prometheus
     properties:
