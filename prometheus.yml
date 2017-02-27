@@ -55,9 +55,14 @@ instance_groups:
           enabled: true
       prometheus:
         dashboard_files:
+          - /var/vcap/packages/bosh_dashboards/bosh_deployments.json
+          - /var/vcap/packages/bosh_dashboards/bosh_jobs.json
+          - /var/vcap/packages/bosh_dashboards/bosh_overview.json
+          - /var/vcap/packages/bosh_dashboards/bosh_processes.json
+          - /var/vcap/packages/bosh_dashboards/prometheus_bosh_exporter.json
+          - /var/vcap/packages/cloudfoundry_dashboards/cf_apps_events.json
           - /var/vcap/packages/cloudfoundry_dashboards/cf_apps_latency.json
           - /var/vcap/packages/cloudfoundry_dashboards/cf_apps_requests.json
-          - /var/vcap/packages/cloudfoundry_dashboards/cf_apps_response_size.json
           - /var/vcap/packages/cloudfoundry_dashboards/cf_apps_system.json
           - /var/vcap/packages/cloudfoundry_dashboards/cf_bbs.json
           - /var/vcap/packages/cloudfoundry_dashboards/cf_cc.json
@@ -72,12 +77,26 @@ instance_groups:
           - /var/vcap/packages/cloudfoundry_dashboards/cf_lrps_tasks.json
           - /var/vcap/packages/cloudfoundry_dashboards/cf_metron_agent.json
           - /var/vcap/packages/cloudfoundry_dashboards/cf_metron_agent_doppler.json
+          - /var/vcap/packages/cloudfoundry_dashboards/cf_organization_summary.json
           - /var/vcap/packages/cloudfoundry_dashboards/cf_route_emitter.json
           - /var/vcap/packages/cloudfoundry_dashboards/cf_router.json
+          - /var/vcap/packages/cloudfoundry_dashboards/cf_space_summary.json
           - /var/vcap/packages/cloudfoundry_dashboards/cf_summary.json
           - /var/vcap/packages/cloudfoundry_dashboards/cf_uaa.json
           - /var/vcap/packages/cloudfoundry_dashboards/prometheus_cf_exporter.json
           - /var/vcap/packages/cloudfoundry_dashboards/prometheus_firehose_exporter.json
+          - /var/vcap/packages/kubernetes_dashboards/kubernetes_admission_quota_controller.json
+          - /var/vcap/packages/kubernetes_dashboards/kubernetes_apiserver_latencies.json
+          - /var/vcap/packages/kubernetes_dashboards/kubernetes_apiserver_requests.json
+          - /var/vcap/packages/kubernetes_dashboards/kubernetes_daemonsets.json
+          - /var/vcap/packages/kubernetes_dashboards/kubernetes_deployments.json
+          - /var/vcap/packages/kubernetes_dashboards/kubernetes_nodes_capacity.json
+          - /var/vcap/packages/kubernetes_dashboards/kubernetes_nodes_health.json
+          - /var/vcap/packages/kubernetes_dashboards/kubernetes_nodes_info.json
+          - /var/vcap/packages/kubernetes_dashboards/kubernetes_pods.json
+          - /var/vcap/packages/kubernetes_dashboards/kubernetes_pods_containers.json
+          - /var/vcap/packages/kubernetes_dashboards/kubernetes_rest_client.json
+          - /var/vcap/packages/kubernetes_dashboards/kubernetes_ssh_tunnels.json
           - /var/vcap/packages/mysql_dashboards/mysql_innodb.json
           - /var/vcap/packages/mysql_dashboards/mysql_innodb_advanced.json
           - /var/vcap/packages/mysql_dashboards/mysql_myisam.json
@@ -88,13 +107,28 @@ instance_groups:
           - /var/vcap/packages/mysql_dashboards/mysql_table.json
           - /var/vcap/packages/mysql_dashboards/mysql_tokudb.json
           - /var/vcap/packages/mysql_dashboards/mysql_user_statistics.json
+          - /var/vcap/packages/p_rabbitmq_dashboards/p_rabbitmq_exchanges.json
+          - /var/vcap/packages/p_rabbitmq_dashboards/p_rabbitmq_haproxy.json
+          - /var/vcap/packages/p_rabbitmq_dashboards/p_rabbitmq_overview.json
+          - /var/vcap/packages/p_rabbitmq_dashboards/p_rabbitmq_queues.json
+          - /var/vcap/packages/p_rabbitmq_dashboards/p_rabbitmq_rabbitmq_metrics.json
+          - /var/vcap/packages/p_redis_dashboards/p_redis_overview.json
+          - /var/vcap/packages/p_redis_dashboards/p_redis_redis_metrics.json
+          - /var/vcap/packages/p_redis_dashboards/p_redis_service_broker.json
+          - /var/vcap/packages/probe_dashboards/probe_https_summary.json
+          - /var/vcap/packages/prometheus_dashboards/prometheus_scrapes_notifications.json
+          - /var/vcap/packages/prometheus_dashboards/prometheus_storage.json
+          - /var/vcap/packages/prometheus_dashboards/prometheus_summary.json
+          - /var/vcap/packages/rabbitmq_dashboards/rabbitmq_exchanges.json
+          - /var/vcap/packages/rabbitmq_dashboards/rabbitmq_overview.json
+          - /var/vcap/packages/rabbitmq_dashboards/rabbitmq_queues.json
+          - /var/vcap/packages/redis_dashboards/redis_overview.json
+          - /var/vcap/packages/system_dashboards/bosh_system_disk_performance.json
+          - /var/vcap/packages/system_dashboards/bosh_system_disk_space.json
+          - /var/vcap/packages/system_dashboards/bosh_system_overview.json
           - /var/vcap/packages/system_dashboards/system_disk_performance.json
           - /var/vcap/packages/system_dashboards/system_disk_space.json
           - /var/vcap/packages/system_dashboards/system_overview.json
-          - /var/vcap/packages/bosh_dashboards/bosh_deployments.json
-          - /var/vcap/packages/bosh_dashboards/bosh_jobs.json
-          - /var/vcap/packages/bosh_dashboards/bosh_overview.json
-          - /var/vcap/packages/bosh_dashboards/bosh_processes.json
   env:
     bosh:
       password: ((grafana.vm_password))
@@ -132,11 +166,22 @@ instance_groups:
     properties:
       prometheus:
         rule_files:
-          - /var/vcap/jobs/bosh_alerts/packages/bosh_alerts/bosh_jobs.alerts
-          - /var/vcap/jobs/bosh_alerts/packages/bosh_alerts/bosh_exporter.alerts
-          - /var/vcap/jobs/bosh_alerts/packages/bosh_alerts/bosh_processes.alerts
-          - /var/vcap/jobs/cloudfoundry_alerts/packages/cloudfoundry_alerts/cf_routes.alerts
-          - /var/vcap/jobs/cloudfoundry_alerts/packages/cloudfoundry_alerts/diego.alerts
+          - /var/vcap/jobs/bosh_alerts/bosh_jobs.alerts
+          - /var/vcap/jobs/bosh_alerts/bosh_processes.alerts
+          - /var/vcap/jobs/bosh_alerts/bosh_system.alerts
+          - /var/vcap/jobs/bosh_alerts/prometheus_bosh_exporter.alerts
+          - /var/vcap/jobs/cloudfoundry_alerts/cf_routes.alerts
+          - /var/vcap/jobs/cloudfoundry_alerts/diego.alerts
+          - /var/vcap/jobs/cloudfoundry_alerts/prometheus_cf_exporter.alerts
+          - /var/vcap/jobs/cloudfoundry_alerts/prometheus_firehose_exporter.alerts
+          - /var/vcap/jobs/p_rabbitmq_alerts/p_rabbitmq.alerts
+          - /var/vcap/jobs/p_redis_alerts/p_redis.alerts
+          - /var/vcap/jobs/p_redis_alerts/p_redis_service_broker.alerts
+          - /var/vcap/jobs/probe_alerts/probe.alerts
+          - /var/vcap/jobs/prometheus_alerts/prometheus.alerts
+          - /var/vcap/jobs/rabbitmq_alerts/rabbitmq.alerts
+          - /var/vcap/jobs/redis_alerts/prometheus_redis_exporter.alerts
+          - /var/vcap/jobs/redis_alerts/redis.alerts
         scrape_configs:
           - job_name: blackbox
             metrics_path: /probe
