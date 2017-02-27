@@ -48,6 +48,12 @@ instance_groups:
     release: prometheus
   - name: mysql_dashboards
     release: prometheus
+  - name: p_rabbitmq_dashboards
+    release: prometheus
+  - name: p_redis_dashboards
+    release: prometheus
+  - name: probe_dashboards
+    release: prometheus
   properties:
     grafana:
       dashboards:
@@ -315,6 +321,7 @@ instance_groups:
           api_url: ((cf_exporter.cf.api_url))
           username: ((cf_exporter.cf.username))
           password: ((cf_exporter.cf.password))
+          deployment_name: cf
         metrics:
           environment: cf
         skip_ssl_verify: true
