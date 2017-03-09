@@ -4,6 +4,16 @@ This how-to has been tested on PCF 1.8. The manifest file is appropriate for clo
 
 The manifest example is split into the main part which should not require any customization (at least initially) and the local configuration which has to be adjusted. To merge those files we are using the new [BOSH CLI (beta)](https://github.com/cloudfoundry/bosh-cli). Documentation is available [here](http://bosh.io/docs/cli-v2.html). It is perfectly possible to use this CLI for all other steps involving a BOSH CLI.
 
+# How it works
+This is a high-level overview of monitoring Cloud Foundry with Prometheus
+![logical diagram](https://github.com/mkuratczyk/prometheus-on-PCF/blob/master/docs/logical-diagram.png)
+
+Notes:
+* since Prometheus uses a pull mechanism, connections are initiated by Prometheus
+* if you deploy the bosh release using the provided manifest, exporters are colocated with Prometheus (except node_exporter which is a BOSH add-on and runs on all VMs)
+* prometheus-boshrelease includes a number of other exporters you can use which are not included in the example
+* you don't really need the nginx job/VM if you just want to kick the tires but you'll probably need it in a serious deployment to terminate SSL and provide authentication for Prometheus (Grafana requires authentication anyway)
+
 ## Upload the bosh releases to your BOSH Director
 
 ```
