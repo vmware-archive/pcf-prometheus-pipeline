@@ -186,9 +186,6 @@ instance_groups:
           - /var/vcap/jobs/p_redis_alerts/p_redis_service_broker.alerts
           - /var/vcap/jobs/probe_alerts/probe.alerts
           - /var/vcap/jobs/prometheus_alerts/prometheus.alerts
-          - /var/vcap/jobs/rabbitmq_alerts/rabbitmq.alerts
-          - /var/vcap/jobs/redis_alerts/prometheus_redis_exporter.alerts
-          - /var/vcap/jobs/redis_alerts/redis.alerts
         scrape_configs:
           - job_name: blackbox
             metrics_path: /probe
