@@ -58,6 +58,8 @@ instance_groups:
     release: prometheus
   properties:
     grafana:
+      security:
+        admin_password: ((grafana.admin_password))
       dashboards:
         json:
           enabled: true

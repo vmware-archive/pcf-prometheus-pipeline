@@ -103,25 +103,10 @@ Once that's done, any VM (re)created by BOSH will be running node_exporter. The 
 
 ## Connect to Grafana
 If the deployment was successful use ```bosh vms``` to find out the IP address of your nginx server. Then connect:
-* https://NGINX:3000 to access Grafana (default credentials: admin/admin)
+* https://NGINX:3000 to access Grafana (default credentials: admin/CHANGE_ME)
 * https://NGINX:9090 to access Prometheus
 
 There is a number of ready to use Dashboards that should install automatically. You can edit them in Grafana or create your own. They are coming from [prometheus-boshrelease/src](https://github.com/cloudfoundry-community/prometheus-boshrelease/tree/master/src).
-
-## Grafana Plugins
-UPDATE: this section was written when prometheus-boshrelease didn't include any Grafana plugins. Currently (v11) there are some plugins included so you likely don't need to do that. However, this info can still be helpful if you need to use a plugin which is not included. Make sure the folder (/var/vcap/store/grafana/plugins/) is configured in Grafana though.
-
-If you want to install Grafana plugins you can do it the following way (this will install all officially supported plugins):
-```
-bosh ssh grafana
-sudo -s
-apt-get install jq git
-cd /var/vcap/store/grafana/plugins/
-wget https://raw.githubusercontent.com/grafana/grafana-plugin-repository/master/repo.json
-for plugin in `jq .plugins[].url repo.json  | tr -d '"'`; do git clone $plugin; done
-cd /var/vcap/bosh/bin/
-./monit restart grafana
-```
 
 ## Alertmanager
 The `prometheus-boshrelease` does include some predefined alerts for CloudFoundry as well as for BOSH. You can find the alert definitions in [prometheus-boshrelease/src](https://github.com/cloudfoundry-community/prometheus-boshrelease/tree/master/src). Check the `*.alerts` rule files in the corresponding folders. If you create new alerts make sure to add them to the `prometheus.yml` -  the path to the alert rule file as well as a job release for additional new exporters.
