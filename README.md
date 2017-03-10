@@ -13,6 +13,7 @@ Notes:
 * if you deploy the bosh release using the provided manifest, exporters are colocated with Prometheus (except node_exporter which is a BOSH add-on and runs on all VMs)
 * prometheus-boshrelease includes a number of other exporters you can use which are not included in the example
 * you don't really need the nginx job/VM if you just want to kick the tires but you'll probably need it in a serious deployment to terminate SSL and provide authentication for Prometheus (Grafana requires authentication anyway)
+* in a production environment you should probably put firehose_exporter on a separate VM to scale it out independently
 
 ## Upload the bosh releases to your BOSH Director
 
