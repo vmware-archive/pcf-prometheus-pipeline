@@ -1,6 +1,6 @@
 # Prometheus BOSH release on Pivotal Cloud Foundry
 
-This how-to has been tested on PCF 1.8. The manifest file is appropriate for cloud-config enabled environments.
+This how-to has been tested on PCF 1.8, 1.9 and 1.10. The manifest file is appropriate for cloud-config enabled environments.
 
 The manifest example is split into the main part which should not require any customization (at least initially) and the local configuration which has to be adjusted. To merge those files we are using the new [BOSH CLI (beta)](https://github.com/cloudfoundry/bosh-cli). Documentation is available [here](http://bosh.io/docs/cli-v2.html). It is perfectly possible to use this CLI for all other steps involving a BOSH CLI.
 
