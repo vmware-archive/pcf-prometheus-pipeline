@@ -124,17 +124,17 @@ instance_groups:
           - /var/vcap/packages/probe_alerts/probe.alerts
           - /var/vcap/packages/prometheus_alerts/prometheus.alerts
         scrape_configs:
-          - job_name: blackbox
+          - job_name: cf_api
             metrics_path: /probe
             params:
               module:
-                - http_2xx
+                - http
             static_configs:
               - targets:
-                - prometheus.io
+                - ((cf_exporter.cf.api_url))
             relabel_configs:
               - source_labels: [__address__]
-                regex: (.*)(:80)?
+                regex: (.*)
                 target_label: __param_target
                 replacement: ${1}
               - source_labels: [__param_target]
