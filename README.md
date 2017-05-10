@@ -135,7 +135,7 @@ Below and example config for `prometheus.yml` to send alerts to slack:
               channel: 'slack-channel'
               send_resolved: true
               pretext: "text before the actual alert message"
-              text: "description: {{ .CommonAnnotations.description }}\nsummary: {{ .CommonAnnotations.summary }}"
+              text: "{{ .CommonAnnotations.description }}"
         route:
           receiver: default-receiver
 ```
