@@ -22,6 +22,12 @@ alertmanager:
   vm_type: micro
   vm_password: echo -n 'YOUR_PASSWORD' | mkpasswd --method=sha-512 --password-fd=0
   persistent_disk_type: 1024
+  receivers:
+      slack_configs:
+        - api_url: https://hooks.slack.com/services/....
+          channel: 'slack-channel'
+          send_resolved: true
+          pretext: "text before the actual alert message"
 prometheus:
   vm_type: micro
   vm_password: echo -n 'YOUR_PASSWORD' | mkpasswd --method=sha-512 --password-fd=0
@@ -52,8 +58,8 @@ firehose_exporter:
 cf_exporter:
   cf:
     api_url: https://api.SYSTEM_DOMAIN
-    username: prometheus-cf
-    password: prometheus-client-secret
+    client-id: prometheus-cf
+    client-secret: prometheus-client-secret
   skip_ssl_verify: true
 
 mysqld_exporter:

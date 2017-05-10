@@ -89,8 +89,7 @@ instance_groups:
     release: prometheus
     properties:
       alertmanager:
-        receivers:
-          - name: default-receiver
+        receivers: ((alertmanager.receivers))
         route:
           receiver: default-receiver
   env:
@@ -276,8 +275,8 @@ instance_groups:
       cf_exporter:
         cf:
           api_url: ((cf_exporter.cf.api_url))
-          username: ((cf_exporter.cf.username))
-          password: ((cf_exporter.cf.password))
+          client-id: ((cf_exporter.cf.client-id))
+          client-secret: ((cf_exporter.cf.client-secret))
           deployment_name: cf
         metrics:
           environment: cf

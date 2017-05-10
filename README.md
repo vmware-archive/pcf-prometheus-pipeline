@@ -27,7 +27,7 @@ You can find root_ca_certificate file on the OpsManager VM in ```/var/tempest/wo
 ## Create UAA clients
 Key components of this BOSH release are [firehose_exporter](https://github.com/cloudfoundry-community/firehose_exporter),  [bosh_exporter](https://github.com/cloudfoundry-community/bosh_exporter) and [cf_exporter](https://github.com/cloudfoundry-community/cf_exporter/) which retrieve the data (from CF firehose, BOSH director and Cloud Controller API respectively) and present it in the Prometheus format. Each of those exporters require credentials to access the data source. IMPORTANT: these users have to be created in two different UAA instances. For the firehose and CF credentials, you use the main UAA instance of a Cloud Foundry deployment (where you would normally create users/clients, such as those for any other nozzles). For bosh_exporter however, you need to use the UAA which is colocated with the BOSH Director.
 
-### Create client for firehose_exporter
+### Create clients for firehose_exporter and cf_exporter
 This process is explained here: https://github.com/cloudfoundry-community/firehose_exporter
 ```bash
 uaac target https://uaa.SYSTEM_DOMAIN --skip-ssl-validation
@@ -37,14 +37,12 @@ uaac client add prometheus-firehose \
   --secret prometheus-client-secret \
   --authorized_grant_types client_credentials,refresh_token \
   --authorities doppler.firehose
-```
-Edit name and secret values. You will need to put them in the manifest later.
 
-
-### Create user for cf_exporter
-```bash
-uaac user add prometheus-cf --password prometheus-client-secret  --emails prometheus-cf
-uaac member add cloud_controller.admin prometheus-cf
+uaac client add prometheus-cf \
+  --name prometheus-cf \
+  --secret prometheus-cf-client-secret \
+  --authorized_grant_types client_credentials,refresh_token \
+  --authorities cloud_controller.admin
 ```
 Edit name and secret values. You will need to put them in the manifest later.
 
