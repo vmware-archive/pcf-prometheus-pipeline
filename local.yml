@@ -29,6 +29,7 @@ alertmanager:
           channel: 'slack-channel'
           send_resolved: true
           pretext: "text before the actual alert message"
+          text: "{{ .CommonAnnotations.description }}"
 prometheus:
   vm_type: micro
   vm_password: echo -n 'YOUR_PASSWORD' | mkpasswd --method=sha-512 --password-fd=0
