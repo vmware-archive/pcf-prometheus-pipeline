@@ -20,7 +20,7 @@ Notes:
 ```
 bosh --ca-cert root_ca_certificate target <YOUR_BOSH_HOST>
 bosh upload release https://bosh.io/d/github.com/cloudfoundry-community/prometheus-boshrelease
-bosh upload release https://github.com/cloudfoundry-community/node-exporter-boshrelease/releases/download/v1.0.0/node-exporter-1.0.0.tgz
+bosh upload release https://github.com/cloudfoundry-community/node-exporter-boshrelease/releases/download/v1.1.0/node-exporter-1.1.0.tgz
 ```
 You can find root_ca_certificate file on the OpsManager VM in ```/var/tempest/workspaces/default/root_ca_certificate```.
 
@@ -135,6 +135,7 @@ Below and example config for `prometheus.yml` to send alerts to slack:
               channel: 'slack-channel'
               send_resolved: true
               pretext: "text before the actual alert message"
+              text: "description: {{ .CommonAnnotations.description }}\nsummary: {{ .CommonAnnotations.summary }}"
         route:
           receiver: default-receiver
 ```
