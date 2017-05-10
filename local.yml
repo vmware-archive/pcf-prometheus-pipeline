@@ -58,8 +58,8 @@ firehose_exporter:
 cf_exporter:
   cf:
     api_url: https://api.SYSTEM_DOMAIN
-    client-id: prometheus-cf
-    client-secret: prometheus-client-secret
+    client_id: prometheus-cf
+    client_secret: prometheus-client-secret
   skip_ssl_verify: true
 
 mysqld_exporter:

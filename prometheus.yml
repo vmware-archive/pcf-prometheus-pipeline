@@ -275,8 +275,8 @@ instance_groups:
       cf_exporter:
         cf:
           api_url: ((cf_exporter.cf.api_url))
-          client-id: ((cf_exporter.cf.client-id))
-          client-secret: ((cf_exporter.cf.client-secret))
+          client-id: ((cf_exporter.cf.client_id))
+          client-secret: ((cf_exporter.cf.client_secret))
           deployment_name: cf
         metrics:
           environment: cf
