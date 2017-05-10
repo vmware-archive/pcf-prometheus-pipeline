@@ -23,6 +23,7 @@ alertmanager:
   vm_password: echo -n 'YOUR_PASSWORD' | mkpasswd --method=sha-512 --password-fd=0
   persistent_disk_type: 1024
   receivers:
+    - name: default-receiver
       slack_configs:
         - api_url: https://hooks.slack.com/services/....
           channel: 'slack-channel'
