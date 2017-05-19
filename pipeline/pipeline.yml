@@ -51,8 +51,8 @@ jobs:
       prometheus_bosh_secret: {{prometheus_bosh_secret}}
       prometheus_firehose_client: {{prometheus_firehose_client}}
       prometheus_firehose_secret: {{prometheus_firehose_secret}}
-      prometheus_cf_username: {{prometheus_cf_username}}
-      prometheus_cf_password: {{prometheus_cf_password}}
+      prometheus_cf_client: {{prometheus_cf_client}}
+      prometheus_cf_secret: {{prometheus_cf_secret}}
 
 - name: upload-release
   plan:
@@ -79,8 +79,8 @@ jobs:
       prometheus_bosh_secret: {{prometheus_bosh_secret}}
       prometheus_firehose_client: {{prometheus_firehose_client}}
       prometheus_firehose_secret: {{prometheus_firehose_secret}}
-      prometheus_cf_username: {{prometheus_cf_username}}
-      prometheus_cf_password: {{prometheus_cf_password}}
+      prometheus_cf_client: {{prometheus_cf_client}}
+      prometheus_cf_secret: {{prometheus_cf_secret}}
       prometheus_cf_deployment_name: {{prometheus_cf_deployment_name}}
       azs: {{deploy_azs}}
       network_name: {{deploy_network}}

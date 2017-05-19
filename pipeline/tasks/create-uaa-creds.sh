@@ -24,8 +24,11 @@ uaac client add ${prometheus_firehose_client} \
   --authorities doppler.firehose || true #ignore errors
 
 echo "Creating Prometheus CF User..."
-uaac user add ${prometheus_cf_username} --password ${prometheus_cf_password}  --emails prometheus-cf || true #ignore errors
-uaac member add cloud_controller.admin ${prometheus_cf_username} || true #ignore errors
++uaac client add ${prometheus_cf_client} \
+  --name ${prometheus_cf_client} \
+  --secret ${prometheus_cf_secret} \
+  --authorized_grant_types client_credentials,refresh_token \
+  --authorities cloud_controller.admin || true
 
 echo "Getting BOSH director IP..."
 director_id=$($CURL --path=/api/v0/deployed/products | jq -r ".[].guid" | grep p-bosh)

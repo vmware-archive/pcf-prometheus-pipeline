@@ -53,8 +53,8 @@ firehose_exporter:
 cf_exporter:
   cf:
     api_url: https://api.${pcf_sys_domain}
-    username: ${prometheus_cf_username}
-    password: ${prometheus_cf_password}
+    client_id: ${prometheus_cf_client}
+    client_secret: ${prometheus_cf_secret}
     deployment_name: ${prometheus_cf_deployment_name}
   skip_ssl_verify: true
 #
