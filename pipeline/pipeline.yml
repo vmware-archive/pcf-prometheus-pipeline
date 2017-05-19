@@ -11,8 +11,8 @@ resources:
 - name: pcf-prometheus-git
   type: git
   source:
-    uri: https://github.com/pivotal-cf/prometheus-on-PCF.git
-    branch: master
+    uri: https://github.com/dlapiduz/prometheus-on-PCF.git
+    branch: install-node-exporter
 - name: prometheus-release
   type: github-release
   source:
@@ -21,6 +21,7 @@ resources:
     access_token: {{github_token}}
 - name: om-bosh-creds
   type: bosh-creds
+  version: 1
   source:
     creds_source: {{bosh_creds_source}}
     # Fill in for Ops manager credentials
@@ -64,13 +65,22 @@ jobs:
   - task: upload-release
     file: pcf-prometheus-git/pipeline/tasks/upload-release.yml
 
+- name: install-node-exporter
+  plan:
+  - aggregate:
+    - get: pcf-prometheus-git
+    - get: om-bosh-creds
+      passed: [upload-release]
+  - task: install-node-exporter
+    file: pcf-prometheus-git/pipeline/tasks/install-node-exporter.yml
+
 - name: deploy
   plan:
   - aggregate:
     - get: pcf-prometheus-git
       trigger: true
     - get: om-bosh-creds
-      passed: [upload-release]
+      passed: [install-node-exporter]
   - task: deploy
     file: pcf-prometheus-git/pipeline/tasks/deploy.yml
     params:
