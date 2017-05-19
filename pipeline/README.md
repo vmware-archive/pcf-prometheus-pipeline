@@ -8,7 +8,7 @@ It can target an ops manager BOSH director or a standalone one.
 
 - **Upload Release**
 
-  Uploads the Prometheus and Routing BOSH releases to the target director.
+  Uploads the Prometheus BOSH releases to the target director.
 
 - **Create UAA Creds**
 

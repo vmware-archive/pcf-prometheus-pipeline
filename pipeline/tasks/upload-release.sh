@@ -18,6 +18,3 @@ EOF
 
 echo "Uploading Prometheus Release..."
 bosh -n upload release prometheus-release/prometheus-*.tgz
-
-echo "Uploading Routing Release..."
-bosh -n upload release https://bosh.io/d/github.com/cloudfoundry-incubator/cf-routing-release

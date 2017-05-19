@@ -18,8 +18,8 @@ params:
   prometheus_bosh_secret:
   prometheus_firehose_client:
   prometheus_firehose_secret:
-  prometheus_cf_username:
-  prometheus_cf_password:
+  prometheus_cf_client:
+  prometheus_cf_secret:
   opsman_url:
 
 run:
