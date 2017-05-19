@@ -22,8 +22,7 @@ EOF
 
 echo "Interpolating..."
 eval "echo \"$(cat pcf-prometheus-git/tasks/etc/local.yml)\"" > local.yml
-bosh-cli interpolate pcf-prometheus-git/prometheus-no-route.yml -l local.yml > manifest.yml
-
+bosh-cli interpolate pcf-prometheus-git/prometheus.yml -l local.yml > manifest.yml
 
 echo "Deploying..."
 
