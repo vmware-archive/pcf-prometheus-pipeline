@@ -19,6 +19,12 @@ resources:
     user: cloudfoundry-community
     repository: prometheus-boshrelease
     access_token: {{github_token}}
+- name: node-exporter-release
+  type: github-release
+  source:
+    user: cloudfoundry-community
+    repository: node-exporter-boshrelease
+    access_token: {{github_token}}
 - name: om-bosh-creds
   type: bosh-creds
   version: 1
@@ -61,6 +67,7 @@ jobs:
     - get: pcf-prometheus-git
       trigger: true
     - get: prometheus-release
+    - get: node-exporter-release
     - get: om-bosh-creds
   - task: upload-release
     file: pcf-prometheus-git/pipeline/tasks/upload-release.yml

@@ -18,3 +18,6 @@ EOF
 
 echo "Uploading Prometheus Release..."
 bosh -n upload release prometheus-release/prometheus-*.tgz
+
+echo "Uploading Node exporter Release..."
+bosh -n upload release node-exporter-release/node-exporter-*.tgz
