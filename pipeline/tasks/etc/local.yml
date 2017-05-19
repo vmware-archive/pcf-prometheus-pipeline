@@ -70,3 +70,6 @@ nats:
   machines: ${nats_machines}
 
 grafana_route: grafana.${pcf_sys_domain}
+
+receivers:
+  - name: default-receiver
