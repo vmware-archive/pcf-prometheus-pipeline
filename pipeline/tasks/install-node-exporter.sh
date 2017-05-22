@@ -16,8 +16,5 @@ $BOSH_USERNAME
 $BOSH_PASSWORD
 EOF
 
-echo "Uploading Prometheus Release..."
-bosh -n upload release prometheus-release/prometheus-*.tgz
-
-echo "Uploading Node exporter Release..."
-bosh -n upload release node-exporter-release/node-exporter-*.tgz
+echo "Uploading Runtime Config..."
+bosh update runtime-config pcf-prometheus-git/runtime.yml

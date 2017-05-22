@@ -9,8 +9,6 @@ image_resource:
 inputs:
 - name: pcf-prometheus-git
 - name: om-bosh-creds
-- name: prometheus-release
-- name: node-exporter-release
 
 run:
-  path: pcf-prometheus-git/pipeline/tasks/upload-release.sh
+  path: pcf-prometheus-git/pipeline/tasks/install-node-exporter.sh
