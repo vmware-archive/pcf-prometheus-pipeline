@@ -27,7 +27,7 @@ alertmanager:
 prometheus:
   vm_type: ${vm_type_small}
   vm_password: ${vm_password}
-  persistent_disk_type: 5120
+  persistent_disk_type: 51200
 
 bosh_exporter:
   bosh:
