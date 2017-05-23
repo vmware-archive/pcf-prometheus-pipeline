@@ -6,6 +6,8 @@ director_uuid: ((director_uuid))
 releases:
 - name: prometheus
   version: latest
+- name: prometheus-custom
+  version: latest
 
 stemcells:
 - alias: trusty
@@ -41,21 +43,21 @@ instance_groups:
   - name: grafana
     release: prometheus
   - name: bosh_dashboards
-    release: prometheus
+    release: prometheus-custom
   - name: cloudfoundry_dashboards
-    release: prometheus
+    release: prometheus-custom
   - name: system_dashboards
-    release: prometheus
+    release: prometheus-custom
   - name: mysql_dashboards
-    release: prometheus
+    release: prometheus-custom
   - name: p_rabbitmq_dashboards
-    release: prometheus
+    release: prometheus-custom
   - name: p_redis_dashboards
-    release: prometheus
+    release: prometheus-custom
   - name: probe_dashboards
-    release: prometheus
+    release: prometheus-custom
   - name: prometheus_dashboards
-    release: prometheus
+    release: prometheus-custom
   properties:
     grafana:
       security:
@@ -233,19 +235,19 @@ instance_groups:
               - targets:
                 - localhost:9102
   - name: bosh_alerts
-    release: prometheus
+    release: prometheus-custom
   - name: cloudfoundry_alerts
-    release: prometheus
+    release: prometheus-custom
   - name: mysql_alerts
-    release: prometheus
+    release: prometheus-custom
   - name: p_rabbitmq_alerts
-    release: prometheus
+    release: prometheus-custom
   - name: p_redis_alerts
-    release: prometheus
+    release: prometheus-custom
   - name: probe_alerts
-    release: prometheus
+    release: prometheus-custom
   - name: prometheus_alerts
-    release: prometheus
+    release: prometheus-custom
   - name: blackbox_exporter
     release: prometheus
     properties:
