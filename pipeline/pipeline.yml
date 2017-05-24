@@ -11,7 +11,7 @@ resources:
 - name: pcf-prometheus-git
   type: git
   source:
-    uri: https://github.com/dlapiduz/prometheus-on-PCF.git
+    uri: https://github.com/pivotal-cf/prometheus-on-PCF.git
     branch: master 
 - name: prometheus-release
   type: github-release
