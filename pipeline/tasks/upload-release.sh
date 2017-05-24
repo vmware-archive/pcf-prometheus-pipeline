@@ -21,3 +21,6 @@ bosh -n upload release prometheus-release/prometheus-*.tgz
 
 echo "Uploading Node exporter Release..."
 bosh -n upload release node-exporter-release/node-exporter-*.tgz
+
+echo "Uploading Prometheus Customizations Release..."
+bosh -n upload release prometheus-custom-release/prometheus-custom-*.tgz
