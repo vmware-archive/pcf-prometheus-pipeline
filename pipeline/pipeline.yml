@@ -12,12 +12,18 @@ resources:
   type: git
   source:
     uri: https://github.com/dlapiduz/prometheus-on-PCF.git
-    branch: install-node-exporter
+    branch: master 
 - name: prometheus-release
   type: github-release
   source:
     user: cloudfoundry-community
     repository: prometheus-boshrelease
+    access_token: {{github_token}}
+- name: prometheus-custom-release
+  type: github-release
+  source:
+    user: dlapiduz
+    repository: prometheus-custom-boshrelease
     access_token: {{github_token}}
 - name: node-exporter-release
   type: github-release
@@ -27,7 +33,6 @@ resources:
     access_token: {{github_token}}
 - name: om-bosh-creds
   type: bosh-creds
-  version: 1
   source:
     creds_source: {{bosh_creds_source}}
     # Fill in for Ops manager credentials
@@ -67,6 +72,7 @@ jobs:
     - get: pcf-prometheus-git
       trigger: true
     - get: prometheus-release
+    - get: prometheus-custom-release
     - get: node-exporter-release
     - get: om-bosh-creds
   - task: upload-release
