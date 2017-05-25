@@ -24,7 +24,7 @@ uaac client add ${prometheus_firehose_client} \
   --authorities doppler.firehose || true #ignore errors
 
 echo "Creating Prometheus CF User..."
-+uaac client add ${prometheus_cf_client} \
+uaac client add ${prometheus_cf_client} \
   --name ${prometheus_cf_client} \
   --secret ${prometheus_cf_secret} \
   --authorized_grant_types client_credentials,refresh_token \
