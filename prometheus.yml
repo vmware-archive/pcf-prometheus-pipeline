@@ -67,14 +67,14 @@ instance_groups:
           enabled: true
       prometheus:
         dashboard_files:
-          - /var/vcap/packages/bosh_dashboards/*.json
-          - /var/vcap/packages/cloudfoundry_dashboards/*.json
-          - /var/vcap/packages/mysql_dashboards/*.json
-          - /var/vcap/packages/p_rabbitmq_dashboards/*.json
-          - /var/vcap/packages/p_redis_dashboards/*.json
-          - /var/vcap/packages/probe_dashboards/*.json
-          - /var/vcap/packages/prometheus_dashboards/*.json
-          - /var/vcap/packages/system_dashboards/*.json
+          - /var/vcap/jobs/bosh_dashboards/*.json
+          - /var/vcap/jobs/cloudfoundry_dashboards/*.json
+          - /var/vcap/jobs/mysql_dashboards/*.json
+          - /var/vcap/jobs/p_rabbitmq_dashboards/*.json
+          - /var/vcap/jobs/p_redis_dashboards/*.json
+          - /var/vcap/jobs/probe_dashboards/*.json
+          - /var/vcap/jobs/prometheus_dashboards/*.json
+          - /var/vcap/jobs/system_dashboards/*.json
   env:
     bosh:
       password: ((grafana.vm_password))
@@ -111,19 +111,19 @@ instance_groups:
     properties:
       prometheus:
         rule_files:
-          - /var/vcap/packages/bosh_alerts/bosh_jobs.alerts
-          - /var/vcap/packages/bosh_alerts/bosh_processes.alerts
-          - /var/vcap/packages/bosh_alerts/bosh_system.alerts
-          - /var/vcap/packages/bosh_alerts/prometheus_bosh_exporter.alerts
-          - /var/vcap/packages/cloudfoundry_alerts/cf_routes.alerts
-          - /var/vcap/packages/cloudfoundry_alerts/diego.alerts
-          - /var/vcap/packages/cloudfoundry_alerts/prometheus_cf_exporter.alerts
-          - /var/vcap/packages/cloudfoundry_alerts/prometheus_firehose_exporter.alerts
-          - /var/vcap/packages/p_rabbitmq_alerts/p_rabbitmq.alerts
-          - /var/vcap/packages/p_redis_alerts/p_redis.alerts
-          - /var/vcap/packages/p_redis_alerts/p_redis_service_broker.alerts
-          - /var/vcap/packages/probe_alerts/probe.alerts
-          - /var/vcap/packages/prometheus_alerts/prometheus.alerts
+          - /var/vcap/jobs/bosh_alerts/*.alerts
+          - /var/vcap/jobs/cloudfoundry_alerts/*.alerts
+          - /var/vcap/jobs/consul_alerts/*.alerts
+          - /var/vcap/jobs/haproxy_alerts/*.alerts
+          - /var/vcap/jobs/kubernetes_alerts/*.alerts
+          - /var/vcap/jobs/mysql_alerts/*.alerts
+          - /var/vcap/jobs/p_rabbitmq_alerts/*.alerts
+          - /var/vcap/jobs/p_redis_alerts/*.alerts
+          - /var/vcap/jobs/postgres_alerts/*.alerts
+          - /var/vcap/jobs/probe_alerts/*.alerts
+          - /var/vcap/jobs/prometheus_alerts/*.alerts
+          - /var/vcap/jobs/rabbitmq_alerts/*.alerts
+          - /var/vcap/jobs/redis_alerts/*.alerts
         scrape_configs:
           - job_name: cf_api
             metrics_path: /probe
