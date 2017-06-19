@@ -26,7 +26,8 @@ deploy_nginx_ip: 1.1.1.1
 deploy_vm_type_micro: micro
 deploy_vm_type_small: small
 
-bosh_creds_source: opsman
+pcf_bosh_creds_source: opsman
+deploy_bosh_creds_source: opsman
 
 # Fill in if you use `bosh_creds_source: manual`
 bosh_username: ""
