@@ -1,9 +1,5 @@
 #!/bin/bash
 set -e
-CURL="om --target https://${opsman_url} -k \
-  --username $pcf_opsman_admin_username \
-  --password $pcf_opsman_admin_password \
-  curl"
 
 if [[ -s deploy-bosh-creds/bosh-ca.pem ]]; then
   bosh -n --ca-cert deploy-bosh-creds/bosh-ca.pem target `cat deploy-bosh-creds/director_ip`
