@@ -8,7 +8,8 @@ image_resource:
 
 inputs:
 - name: pcf-prometheus-git
-- name: om-bosh-creds
+- name: pcf-bosh-creds
+- name: deploy-bosh-creds
 - name: prometheus-release
 - name: prometheus-custom-release
 - name: node-exporter-release

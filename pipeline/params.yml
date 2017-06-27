@@ -15,8 +15,8 @@ prometheus_bosh_client: prometheus-bosh
 prometheus_bosh_secret: prometheus-client-secret
 prometheus_firehose_client: prometheus-firehose
 prometheus_firehose_secret: prometheus-client-secret
-prometheus_cf_username: prometheus-cf
-prometheus_cf_password: prometheus-client-secret
+prometheus_cf_client: prometheus-cf
+prometheus_cf_secret: prometheus-client-secret
 prometheus_cf_deployment_name: cf
 
 deploy_azs: "[az1, az2]"
@@ -26,7 +26,8 @@ deploy_nginx_ip: 1.1.1.1
 deploy_vm_type_micro: micro
 deploy_vm_type_small: small
 
-bosh_creds_source: opsman
+pcf_bosh_creds_source: opsman
+deploy_bosh_creds_source: opsman
 
 # Fill in if you use `bosh_creds_source: manual`
 bosh_username: ""

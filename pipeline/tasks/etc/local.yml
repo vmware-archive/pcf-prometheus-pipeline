@@ -32,12 +32,12 @@ prometheus:
 bosh_exporter:
   bosh:
     uaa:
-      url: https://$(cat om-bosh-creds/director_ip):8443
+      url: https://$(cat pcf-bosh-creds/director_ip):8443
       client_id: ${prometheus_bosh_client}
       client_secret: ${prometheus_bosh_secret}
-    url: https://$(cat om-bosh-creds/director_ip)
+    url: https://$(cat pcf-bosh-creds/director_ip)
     ca_cert: |
-$(cat om-bosh-creds/bosh-ca.pem | awk '{printf "      %s\n", $0}')
+$(cat pcf-bosh-creds/bosh-ca.pem | awk '{printf "      %s\n", $0}')
 
 firehose_exporter:
   uaa:

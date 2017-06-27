@@ -31,10 +31,24 @@ resources:
     user: cloudfoundry-community
     repository: node-exporter-boshrelease
     access_token: {{github_token}}
-- name: om-bosh-creds
+- name: pcf-bosh-creds
   type: bosh-creds
   source:
-    creds_source: {{bosh_creds_source}}
+    creds_source: {{pcf_bosh_creds_source}}
+    # Fill in for Ops manager credentials
+    pcf_ert_domain: {{pcf_ert_domain}}
+    pcf_opsman_admin_username: {{pcf_opsman_admin_username}}
+    pcf_opsman_admin_password: {{pcf_opsman_admin_password}}
+    opsman_url: {{opsman_url}}
+    # Or manual credentials
+    bosh_username: {{bosh_username}}
+    bosh_password: {{bosh_password}}
+    director_ip: {{director_ip}}
+    bosh_ca: {{bosh_ca}}
+- name: deploy-bosh-creds
+  type: bosh-creds
+  source:
+    creds_source: {{deploy_bosh_creds_source}}
     # Fill in for Ops manager credentials
     pcf_ert_domain: {{pcf_ert_domain}}
     pcf_opsman_admin_username: {{pcf_opsman_admin_username}}
@@ -74,7 +88,8 @@ jobs:
     - get: prometheus-release
     - get: prometheus-custom-release
     - get: node-exporter-release
-    - get: om-bosh-creds
+    - get: pcf-bosh-creds
+    - get: deploy-bosh-creds
   - task: upload-release
     file: pcf-prometheus-git/pipeline/tasks/upload-release.yml
 
@@ -82,7 +97,7 @@ jobs:
   plan:
   - aggregate:
     - get: pcf-prometheus-git
-    - get: om-bosh-creds
+    - get: pcf-bosh-creds
       passed: [upload-release]
   - task: install-node-exporter
     file: pcf-prometheus-git/pipeline/tasks/install-node-exporter.yml
@@ -92,8 +107,10 @@ jobs:
   - aggregate:
     - get: pcf-prometheus-git
       trigger: true
-    - get: om-bosh-creds
+    - get: pcf-bosh-creds
       passed: [install-node-exporter]
+    - get: deploy-bosh-creds
+      passed: [upload-release]
   - task: deploy
     file: pcf-prometheus-git/pipeline/tasks/deploy.yml
     params:
