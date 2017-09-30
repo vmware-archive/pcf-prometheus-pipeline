@@ -4,7 +4,7 @@ platform: linux
 image_resource:
   type: docker-image
   source:
-    repository: czero/cflinuxfs2
+    repository: boshcpi/cpi-certification
 
 inputs:
 - name: pcf-prometheus-git
