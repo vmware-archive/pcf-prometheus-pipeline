@@ -9,6 +9,9 @@ image_resource:
 inputs:
 - name: pcf-prometheus-git
 
+outputs:
+- name: foo
+
 params:
   pcf_ert_domain:
   pcf_opsman_admin_username:

@@ -2,8 +2,8 @@
 set -e
 
 CURL="om --target https://${opsman_url} -k \
-  --username $pcf_opsman_admin_username \
-  --password $pcf_opsman_admin_password \
+  --username ${pcf_opsman_admin_username} \
+  --password ${pcf_opsman_admin_password} \
   curl"
 
 echo "Getting UAA credentials..."
@@ -16,19 +16,19 @@ uaa_secret=$(echo $uaa_creds | jq -r .credential.value.password)
 
 echo "Creating Prometheus UAA Client..."
 uaac target https://uaa.${pcf_sys_domain} --skip-ssl-validation
-uaac token client get $uaa_client -s $uaa_secret
+uaac token client get ${uaa_client} -s ${uaa_secret}
 uaac client add ${prometheus_firehose_client} \
   --name ${prometheus_firehose_client} \
   --secret ${prometheus_firehose_secret} \
   --authorized_grant_types client_credentials,refresh_token \
   --authorities doppler.firehose || true #ignore errors
 
-echo "Creating Prometheus CF User..."
+echo "Creating Prometheus CF Client..."
 uaac client add ${prometheus_cf_client} \
   --name ${prometheus_cf_client} \
   --secret ${prometheus_cf_secret} \
   --authorized_grant_types client_credentials,refresh_token \
-  --authorities cloud_controller.admin || true
+  --authorities cloud_controller.admin_read_only || true
 
 echo "Getting BOSH director IP..."
 director_id=$($CURL --path=/api/v0/deployed/products | jq -r ".[].guid" | grep p-bosh)
@@ -45,7 +45,7 @@ admin
 $uaa_admin_password
 EOF
 
-echo "Creating BOSH UAA Prometheus creds"
+echo "Creating Prometheus BOSH UAA Client ..."
 uaac client add ${prometheus_bosh_client} \
   --name ${prometheus_bosh_client} \
   --secret ${prometheus_bosh_secret} \

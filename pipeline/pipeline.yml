@@ -6,6 +6,10 @@ resource_types:
   source:
     repository: dlapiduz/bosh-creds-resource
     tag: latest
+- name: bosh-deploy
+  type: docker-image
+  source:
+    repository: cloudfoundry/bosh-deployment-resource
 
 resources:
 - name: pcf-prometheus-git
@@ -13,52 +17,51 @@ resources:
   source:
     uri: https://github.com/pivotal-cf/prometheus-on-PCF.git
     branch: master 
+- name: prometheus-git-repo
+  type: git
+  source:
+    uri: https://github.com/cloudfoundry-community/prometheus-boshrelease.git
+    branch: master 
 - name: prometheus-release
   type: github-release
   source:
     user: cloudfoundry-community
     repository: prometheus-boshrelease
-    access_token: {{github_token}}
+    access_token: ((github_token))
 - name: prometheus-custom-release
   type: github-release
   source:
-    user: dlapiduz
-    repository: prometheus-custom-boshrelease
-    access_token: {{github_token}}
+   user: dlapiduz
+   repository: prometheus-custom-boshrelease
+   access_token: ((github_token))
 - name: node-exporter-release
   type: github-release
   source:
     user: cloudfoundry-community
     repository: node-exporter-boshrelease
-    access_token: {{github_token}}
+    access_token: ((github_token))
 - name: pcf-bosh-creds
   type: bosh-creds
   source:
-    creds_source: {{pcf_bosh_creds_source}}
+    creds_source: ((pcf_bosh_creds_source))
     # Fill in for Ops manager credentials
-    pcf_ert_domain: {{pcf_ert_domain}}
-    pcf_opsman_admin_username: {{pcf_opsman_admin_username}}
-    pcf_opsman_admin_password: {{pcf_opsman_admin_password}}
-    opsman_url: {{opsman_url}}
+    pcf_ert_domain: ((pcf_ert_domain))
+    pcf_opsman_admin_username: ((pcf_opsman_admin_username))
+    pcf_opsman_admin_password: ((pcf_opsman_admin_password))
+    opsman_url: ((opsman_url))
     # Or manual credentials
-    bosh_username: {{bosh_username}}
-    bosh_password: {{bosh_password}}
-    director_ip: {{director_ip}}
-    bosh_ca: {{bosh_ca}}
-- name: deploy-bosh-creds
-  type: bosh-creds
+    bosh_username: ((bosh_username))
+    bosh_password: ((bosh_password))
+    director_ip: ((director_ip))
+    bosh_ca: ((bosh_ca))
+- name: bosh-deployment
+  type: bosh-deployment
   source:
-    creds_source: {{deploy_bosh_creds_source}}
-    # Fill in for Ops manager credentials
-    pcf_ert_domain: {{pcf_ert_domain}}
-    pcf_opsman_admin_username: {{pcf_opsman_admin_username}}
-    pcf_opsman_admin_password: {{pcf_opsman_admin_password}}
-    opsman_url: {{opsman_url}}
-    # Or manual credentials
-    bosh_username: {{bosh_username}}
-    bosh_password: {{bosh_password}}
-    director_ip: {{director_ip}}
-    bosh_ca: {{bosh_ca}}
+    deployment: prometheus
+    target: https://((director_ip)):25555
+    client: ((bosh_username))
+    client_secret: ((bosh_password))
+    ca_cert: ((bosh_ca))
 
 jobs:
 - name: create-uaa-creds
@@ -68,28 +71,28 @@ jobs:
   - task: create-uaa-creds
     file: pcf-prometheus-git/pipeline/tasks/create-uaa-creds.yml
     params:
-      opsman_url: {{opsman_url}}
-      pcf_ert_domain: {{pcf_ert_domain}}
-      pcf_opsman_admin_username: {{pcf_opsman_admin_username}}
-      pcf_opsman_admin_password: {{pcf_opsman_admin_password}}
-      pcf_sys_domain: {{pcf_sys_domain}}
-      prometheus_bosh_client: {{prometheus_bosh_client}}
-      prometheus_bosh_secret: {{prometheus_bosh_secret}}
-      prometheus_firehose_client: {{prometheus_firehose_client}}
-      prometheus_firehose_secret: {{prometheus_firehose_secret}}
-      prometheus_cf_client: {{prometheus_cf_client}}
-      prometheus_cf_secret: {{prometheus_cf_secret}}
+      opsman_url: ((opsman_url))
+      pcf_ert_domain: ((pcf_ert_domain))
+      pcf_opsman_admin_username: ((pcf_opsman_admin_username))
+      pcf_opsman_admin_password: ((pcf_opsman_admin_password))
+      pcf_sys_domain: ((pcf_sys_domain))
+      prometheus_bosh_client: ((prometheus_bosh_client))
+      prometheus_bosh_secret: ((prometheus_bosh_secret))
+      prometheus_firehose_client: ((prometheus_firehose_client))
+      prometheus_firehose_secret: ((prometheus_firehose_secret))
+      prometheus_cf_client: ((prometheus_cf_client))
+      prometheus_cf_secret: ((prometheus_cf_secret))
 
 - name: upload-release
   plan:
   - aggregate:
     - get: pcf-prometheus-git
-      trigger: true
-    - get: prometheus-release
-    - get: prometheus-custom-release
+      trigger: false
+#    - get: prometheus-release
+#    - get: prometheus-custom-release
     - get: node-exporter-release
     - get: pcf-bosh-creds
-    - get: deploy-bosh-creds
+#    - get: deploy-bosh-creds
   - task: upload-release
     file: pcf-prometheus-git/pipeline/tasks/upload-release.yml
 
@@ -106,33 +109,14 @@ jobs:
   plan:
   - aggregate:
     - get: pcf-prometheus-git
-      trigger: true
-    - get: pcf-bosh-creds
-      passed: [install-node-exporter]
-    - get: deploy-bosh-creds
-      passed: [upload-release]
-  - task: deploy
-    file: pcf-prometheus-git/pipeline/tasks/deploy.yml
-    params:
-      opsman_url: {{opsman_url}}
-      prometheus_bosh_client: {{prometheus_bosh_client}}
-      prometheus_bosh_secret: {{prometheus_bosh_secret}}
-      prometheus_firehose_client: {{prometheus_firehose_client}}
-      prometheus_firehose_secret: {{prometheus_firehose_secret}}
-      prometheus_cf_client: {{prometheus_cf_client}}
-      prometheus_cf_secret: {{prometheus_cf_secret}}
-      prometheus_cf_deployment_name: {{prometheus_cf_deployment_name}}
-      azs: {{deploy_azs}}
-      network_name: {{deploy_network}}
-      vm_password: {{deploy_vm_password}}
-      vm_type_micro: {{deploy_vm_type_micro}}
-      vm_type_small: {{deploy_vm_type_small}}
-      nginx_ip: {{deploy_nginx_ip}}
-      pcf_sys_domain: {{pcf_sys_domain}}
-      pcf_ert_domain: {{pcf_ert_domain}}
-      pcf_opsman_admin_username: {{pcf_opsman_admin_username}}
-      pcf_opsman_admin_password: {{pcf_opsman_admin_password}}
-      nats_machines: {{nats_machines}}
-      nats_username: {{nats_username}}
-      nats_password: {{nats_password}}
-      grafana_admin_password: {{grafana_admin_password}}
+      passed: [create-uaa-creds]
+      trigger: false
+    - get: prometheus-git-repo
+    - get: prometheus-release
+    - get: prometheus-custom-release
+    - put: bosh-deployment
+      params:
+        manifest: prometheus-git-repo/manifests/prometheus.yml
+        releases:
+        - prometheus-release/releases-*.tgz
+        - prometheus-custom-release/releases-*.tgz
