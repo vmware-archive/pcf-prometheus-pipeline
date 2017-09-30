@@ -3,7 +3,7 @@ set -e
 
 root_dir=$(cd "$(dirname "$0")/.." && pwd)
 
-source ${root_dir}/common.sh
+source ${root_dir}/tasks/common.sh
 
 login_to_director pcf-bosh-creds
 

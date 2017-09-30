@@ -1,7 +1,9 @@
 #!/bin/bash
 set -e
 
-source common.sh
+root_dir=$(cd "$(dirname "$0")/.." && pwd)
+
+source ${root_dir}/tasks/source common.sh
 
 login_to_director pcf-bosh-creds
 
