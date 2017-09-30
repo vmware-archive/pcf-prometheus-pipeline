@@ -8,4 +8,4 @@ source ${root_dir}/tasks/common.sh
 login_to_director pcf-bosh-creds
 
 echo "Uploading Node exporter Release..."
-bosh-cli -n upload-release node-exporter-release/node-exporter-*.tgz
+bosh2 -n upload-release node-exporter-release/node-exporter-*.tgz
