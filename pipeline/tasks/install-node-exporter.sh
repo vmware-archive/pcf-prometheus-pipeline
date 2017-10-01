@@ -19,7 +19,7 @@ echo "Uploading Runtime Config..."
 if [[ $lines -eq 1 ]]; then
     bosh2 -n update-runtime-config pcf-prometheus-git/runtime.yml
 else
-    if grep -q "release: node-exporter" "${TMPFILE}"; then
+    if ! grep -q "release: node-exporter" "${TMPFILE}"; then
         bosh2 -n update-runtime-config "${TMPFILE}" -o pcf-prometheus-git/runtime-ops.yml
     fi
 fi
