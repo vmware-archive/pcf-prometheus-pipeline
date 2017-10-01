@@ -1,0 +1,75 @@
+- type: replace
+  path: /instance_groups/name=alertmanager/persistent_disk_type
+  value: 1024
+
+- type: replace
+  path: /instance_groups/name=prometheus/persistent_disk_type
+  value: 10240
+
+- type: replace
+  path: /instance_groups/name=database/persistent_disk_type
+  value: 10240
+
+- type: replace
+  path: /instance_groups/name=grafana/persistent_disk_type
+  value: 1024
+
+- type: replace
+  path: /instance_groups/name=alertmanager/vm_type
+  value: micro
+
+- type: replace
+  path: /instance_groups/name=prometheus/vm_type
+  value: medium
+
+- type: replace
+  path: /instance_groups/name=database/vm_type
+  value: micro
+
+- type: replace
+  path: /instance_groups/name=grafana/vm_type
+  value: micro
+
+- type: replace
+  path: /instance_groups/name=nginx/vm_type
+  value: micro
+
+- type: replace
+  path: /instance_groups/name=alertmanager/network
+  value: ((network))
+
+- type: replace
+  path: /instance_groups/name=prometheus/network
+  value: ((network))
+
+- type: replace
+  path: /instance_groups/name=database/network
+  value: ((network))
+
+- type: replace
+  path: /instance_groups/name=grafana/network
+  value: ((network))
+
+- type: replace
+  path: /instance_groups/name=nginx/network
+  value: ((network))
+
+- type: replace
+  path: /instance_groups/name=alertmanager/azs
+  value: ((azs))
+
+- type: replace
+  path: /instance_groups/name=prometheus/azs
+  value: ((azs))
+
+- type: replace
+  path: /instance_groups/name=database/azs
+  value: ((azs))
+
+- type: replace
+  path: /instance_groups/name=grafana/azs
+  value: ((azs))
+
+- type: replace
+  path: /instance_groups/name=nginx/azs
+  value: ((azs))
