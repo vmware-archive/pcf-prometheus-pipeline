@@ -1,13 +1,11 @@
 
-**WARNING**
-The old version of this repository is deprecated. If you need it, please use [this tag](https://github.com/pivotal-cf/prometheus-on-PCF/tree/74fba4b3401340278d9cb66b4a8076b328de37b8)
-**WARNING**
-
-.
-.
-.
-.
-.
+**WARNING**  
+**WARNING**  
+**WARNING**  
+The old version of this repository is deprecated. If you need it, please use [this tag](https://github.com/pivotal-cf/prometheus-on-PCF/tree/74fba4b3401340278d9cb66b4a8076b328de37b8)  
+**WARNING**  
+**WARNING**  
+**WARNING**  
 
 # Prometheus BOSH release on Pivotal Cloud Foundry
 
