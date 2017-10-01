@@ -9,5 +9,5 @@
   value:
     name: node_exporter
     jobs:
-      name: node_exporter
-      release: node-exporter
+      - name: node_exporter
+        release: node-exporter
