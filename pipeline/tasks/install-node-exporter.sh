@@ -17,7 +17,7 @@ bosh2 runtime-config > "${TMPFILE}"
 lines=$(wc -l < "${TMPFILE}" | xargs)
 echo "Uploading Runtime Config..."
 if [[ $lines -eq 1 ]]; then
-    bosh2 update-runtime-config pcf-prometheus-git/runtime.yml
+    bosh2 -n update-runtime-config pcf-prometheus-git/runtime.yml
 else
-    bosh2 update-rntime-config "${TMPFILE}" -o pcf-prometheus-git/runtime-ops.yml
+    bosh2 -n update-rntime-config "${TMPFILE}" -o pcf-prometheus-git/runtime-ops.yml
 fi
