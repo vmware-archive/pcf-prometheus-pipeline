@@ -1,7 +1,15 @@
-# Prometheus BOSH release on Pivotal Cloud Foundry
 
 **WARNING**
 The old version of this repository is deprecated. If you need it, please use [this tag](https://github.com/pivotal-cf/prometheus-on-PCF/tree/74fba4b3401340278d9cb66b4a8076b328de37b8)
+**WARNING**
+
+.
+.
+.
+.
+.
+
+# Prometheus BOSH release on Pivotal Cloud Foundry
 
 This is currently work in progress. Key changes I'm working on:
 - use manifests from prometheus-boshrelease (with the [required modifications](pcf-cloud-config-ops.yml))
