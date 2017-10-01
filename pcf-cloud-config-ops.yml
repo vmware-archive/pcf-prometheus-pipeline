@@ -16,23 +16,23 @@
 
 - type: replace
   path: /instance_groups/name=alertmanager/vm_type
-  value: micro
+  value: ((vm_type_micro))
 
 - type: replace
   path: /instance_groups/name=prometheus/vm_type
-  value: medium
+  value: ((vm_type_small))
 
 - type: replace
   path: /instance_groups/name=database/vm_type
-  value: micro
+  value: ((vm_type_small))
 
 - type: replace
   path: /instance_groups/name=grafana/vm_type
-  value: micro
+  value: ((vm_type_small))
 
 - type: replace
   path: /instance_groups/name=nginx/vm_type
-  value: micro
+  value: ((vm_type_micro))
 
 - type: replace
   path: /instance_groups/name=alertmanager/networks

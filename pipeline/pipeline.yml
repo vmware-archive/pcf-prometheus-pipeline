@@ -5,7 +5,7 @@ resource_types:
   type: docker-image
   source:
     repository: mkuratczyk/bosh-creds-resource
-    tag: 0.2
+    tag: latest
 - name: bosh-deploy
   type: docker-image
   source:
@@ -55,13 +55,7 @@ resources:
     director_ip: ((director_ip))
     bosh_ca: ((bosh_ca))
 - name: bosh-deployment
-  type: bosh-deployment
-  source:
-    deployment: prometheus
-    target: https://((director_ip)):25555
-    client: ((bosh_username))
-    client_secret: ((bosh_password))
-    ca_cert: ((bosh_ca))
+  type: bosh-deploy
 
 jobs:
 - name: create-uaa-creds
@@ -107,16 +101,29 @@ jobs:
 
 - name: deploy
   plan:
-  - aggregate:
-    - get: pcf-prometheus-git
-      passed: [create-uaa-creds]
-      trigger: false
-    - get: prometheus-git-repo
-    - get: prometheus-release
-    - get: prometheus-custom-release
-    - put: bosh-deployment
-      params:
-        manifest: prometheus-git-repo/manifests/prometheus.yml
-        releases:
-        - prometheus-release/releases-*.tgz
-        - prometheus-custom-release/releases-*.tgz
+  - get: pcf-prometheus-git
+  - get: prometheus-git-repo
+  - get: prometheus-release
+  - get: prometheus-custom-release
+  - get: pcf-bosh-creds
+    passed: [upload-release]
+    params:
+      deployment: prometheus
+  - put: bosh-deployment
+    params:
+      # FIXME
+      source_file: pcf-bosh-creds/bosh_source.json
+      deployment: prometheus
+      manifest: prometheus-git-repo/manifests/prometheus.yml
+      releases:
+      - prometheus-release/prometheus-*.tgz
+      #- prometheus-custom-release/prometheus-custom-*.tgz
+      ops_files:
+      - pcf-prometheus-git/pcf-cloud-config-ops.yml
+      vars:
+        network: ((deploy_network))
+        azs: ((deploy_azs))
+        grafana_password: ((grafana_admin_password))
+        prometheus_password: ((prometheus_admin_password))
+        vm_type_micro: ((deploy_vm_type_micro))
+        vm_type_small: ((deploy_vm_type_small))
