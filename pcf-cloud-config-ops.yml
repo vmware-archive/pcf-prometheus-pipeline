@@ -35,23 +35,23 @@
   value: micro
 
 - type: replace
-  path: /instance_groups/name=alertmanager/network
+  path: /instance_groups/name=alertmanager/networks
   value: ((network))
 
 - type: replace
-  path: /instance_groups/name=prometheus/network
+  path: /instance_groups/name=prometheus/networks
   value: ((network))
 
 - type: replace
-  path: /instance_groups/name=database/network
+  path: /instance_groups/name=database/networks
   value: ((network))
 
 - type: replace
-  path: /instance_groups/name=grafana/network
+  path: /instance_groups/name=grafana/networks
   value: ((network))
 
 - type: replace
-  path: /instance_groups/name=nginx/network
+  path: /instance_groups/name=nginx/networks
   value: ((network))
 
 - type: replace
