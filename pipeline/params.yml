@@ -3,19 +3,14 @@ pcf_opsman_admin_username: user
 pcf_opsman_admin_password: password
 opsman_url: opsman.doma.in
 
-# Elastic Runtime Domain
-pcf_ert_domain: doma.in
-
 # GitHub token with repo or public_repo scope
 github_token: some_token
 
 pcf_sys_domain: sys.doma.in
+traffic_controller_external_port: 443
 
-prometheus_bosh_client: prometheus-bosh
 prometheus_bosh_secret: prometheus-client-secret
-prometheus_firehose_client: prometheus-firehose
 prometheus_firehose_secret: prometheus-client-secret
-prometheus_cf_client: prometheus-cf
 prometheus_cf_secret: prometheus-client-secret
 prometheus_cf_deployment_name: cf
 
@@ -34,8 +29,5 @@ bosh_username: ""
 bosh_password: ""
 director_ip: ""
 bosh_ca: ""
-nats_machines: ""
-nats_username: ""
-nats_password: ""
 
 grafana_admin_password: grafana!

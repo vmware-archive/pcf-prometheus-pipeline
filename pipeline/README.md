@@ -23,11 +23,9 @@ It can target an ops manager BOSH director or a standalone bosh director to moni
   - `github_token`: A github token
   - `pcf_sys_domain`: PCF System Domain
   - `prometheus_bosh_client`: prometheus BOSH UAA client name
-  - `prometheus_bosh_secret`: Secret for the prometheus BOSH UAA client
-  - `prometheus_firehose_client`: Prometheus CF UAA client name
-  - `prometheus_firehose_secret`: Secret for the prometheus CF UAA client
-  - `prometheus_cf_client`: Username for the prometheus CF
-  - `prometheus_cf_secret`: Password for the prometheus CF user
+  - `prometheus_bosh_secret`: Secret for the bosh_exporter BOSH UAA client
+  - `prometheus_firehose_secret`: Secret for the firehost_exporter CF UAA client
+  - `prometheus_cf_secret`: Secret for the cf_exporter CF UAA client
   - `deploy_azs`: Deployment AZs (Array)
   - `deploy_network`: Deployment Network
   - `deploy_vm_password`: SHA of the VM Password
@@ -42,13 +40,10 @@ Ops Man:
   - `pcf_opsman_admin_username`: Ops Manager admin username
   - `pcf_opsman_admin_password`: Ops Manager admin password
   - `opsman_url`: Ops Manager URL
-  - `pcf_ert_domain`: Main CF Domain
 
 Manual:
  - `bosh_username`: BOSH Director username
  - `bosh_password`: BOSH Director password
  - `director_ip`: BOSH Director IP
  - `bosh_ca`: BOSH CA certificate (if any)
- - `nats_machines`: NATS Machines
- - `nats_username`: NATS Username
- - `nats_password`: NATS Password
+
