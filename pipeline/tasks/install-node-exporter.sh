@@ -10,6 +10,9 @@ source ${root_dir}/tasks/common.sh
 
 login_to_director pcf-bosh-creds
 
+echo "Uploading Node exporter Release..."
+bosh2 -n upload-release node-exporter-release/node-exporter-*.tgz
+
 # Check if existing runtime config is empty
 # Unfortunately bosh file.yml -o opsfile.yml fails if file.yml is empty
 # therefore we check if it is and apply runtime config appropriately
