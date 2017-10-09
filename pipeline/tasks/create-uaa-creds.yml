@@ -9,19 +9,12 @@ image_resource:
 inputs:
 - name: pcf-prometheus-git
 
-outputs:
-- name: foo
-
 params:
-  pcf_ert_domain:
   pcf_opsman_admin_username:
   pcf_opsman_admin_password:
   pcf_sys_domain:
-  prometheus_bosh_client:
   prometheus_bosh_secret:
-  prometheus_firehose_client:
   prometheus_firehose_secret:
-  prometheus_cf_client:
   prometheus_cf_secret:
   opsman_url:
 
