@@ -35,6 +35,10 @@
   value: ((vm_type_micro))
 
 - type: replace
+  path: /instance_groups/name=firehose/vm_type
+  value: ((vm_type_small))
+
+- type: replace
   path: /instance_groups/name=alertmanager/networks
   value: ((network))
 
@@ -55,6 +59,10 @@
   value: ((network))
 
 - type: replace
+  path: /instance_groups/name=firehose/networks
+  value: ((network))
+
+- type: replace
   path: /instance_groups/name=alertmanager/azs
   value: ((azs))
 
@@ -72,4 +80,8 @@
 
 - type: replace
   path: /instance_groups/name=nginx/azs
+  value: ((azs))
+
+- type: replace
+  path: /instance_groups/name=firehose/azs
   value: ((azs))
