@@ -6,12 +6,11 @@ opsman_url: opsman.doma.in
 # GitHub token with repo or public_repo scope
 github_token: some_token
 
-pcf_sys_domain: sys.doma.in
 traffic_controller_external_port: 443
 
-prometheus_bosh_secret: prometheus-client-secret
-prometheus_firehose_secret: prometheus-client-secret
-prometheus_cf_secret: prometheus-client-secret
+uaa_bosh_exporter_client_secret: prometheus-client-secret
+uaa_clients_firehose_exporter_secret: prometheus-client-secret
+uaa_clients_cf_exporter_secret: prometheus-client-secret
 prometheus_cf_deployment_name: cf
 
 deploy_azs: "[az1, az2]"
