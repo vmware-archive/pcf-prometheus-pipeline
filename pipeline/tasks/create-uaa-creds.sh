@@ -7,26 +7,27 @@ CURL="om --target https://${opsman_url} -k \
   curl"
 
 echo "Getting UAA credentials..."
-cf_id=$($CURL --path=/api/v0/deployed/products | jq -r ".[].guid" | grep "^cf-")
-
+cf_id=$($CURL --path=/api/v0/deployed/products | jq -r '.[] | select(.type == "cf") | .guid')
 uaa_creds=$($CURL --path=/api/v0/deployed/products/$cf_id/credentials/.uaa.admin_client_credentials)
 
 uaa_client=$(echo $uaa_creds | jq -r .credential.value.identity)
 uaa_secret=$(echo $uaa_creds | jq -r .credential.value.password)
+
+pcf_sys_domain=$($CURL --path=/api/v0/deployed/products | jq -r '.instance_groups[] | select(.name == "autoscaling") | .jobs[] | select (.name == "deploy-autoscaling") | .properties.doppler.host')
 
 echo "Creating Prometheus UAA Client..."
 uaac target https://uaa.${pcf_sys_domain} --skip-ssl-validation
 uaac token client get ${uaa_client} -s ${uaa_secret}
 uaac client add firehose_exporter \
   --name firehose_exporter \
-  --secret ${prometheus_firehose_secret} \
+  --secret ${uaa_clients_firehose_exporter_secret} \
   --authorized_grant_types client_credentials,refresh_token \
   --authorities doppler.firehose || true #ignore errors
 
 echo "Creating Prometheus CF Client..."
 uaac client add cf_exporter \
   --name cf_exporter \
-  --secret ${prometheus_cf_secret} \
+  --secret ${uaa_clients_cf_exporter_secret} \
   --authorized_grant_types client_credentials,refresh_token \
   --authorities cloud_controller.admin_read_only || true
 
@@ -48,7 +49,7 @@ EOF
 echo "Creating Prometheus BOSH UAA Client ..."
 uaac client add bosh_exporter \
   --name bosh_exporter \
-  --secret ${prometheus_bosh_secret} \
+  --secret ${uaa_bosh_exporter_client_secret} \
   --authorized_grant_types client_credentials,refresh_token \
   --authorities bosh.read \
   --scope bosh.read  || true #ignore errors
