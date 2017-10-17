@@ -29,10 +29,10 @@ uaac client add cf_exporter \
   --name cf_exporter \
   --secret ${uaa_clients_cf_exporter_secret} \
   --authorized_grant_types client_credentials,refresh_token \
-  --authorities cloud_controller.admin_read_only || true
+  --authorities cloud_controller.admin_read_only || true #ignore errors
 
 echo "Getting BOSH director IP..."
-director_id=$($CURL --path=/api/v0/deployed/products | jq -r '.[] | select (.type == "p-bosh") | .guid'
+director_id=$($CURL --path=/api/v0/deployed/products | jq -r '.[] | select (.type == "p-bosh") | .guid')
 director_ip=$($CURL --path=/api/v0/deployed/products/$director_id/static_ips | jq -r .[0].ips[0])
 
 echo "Getting BOSH UAA creds..."
