@@ -13,9 +13,6 @@ params:
   opsman_url:
   pcf_opsman_admin_username:
   pcf_opsman_admin_password:
-  uaa_bosh_exporter_client_secret:
-  uaa_clients_firehose_exporter_secret:
-  uaa_clients_cf_exporter_secret:
 
 run:
-  path: pcf-prometheus-git/pipeline/tasks/create-uaa-creds.sh
+  path: pcf-prometheus-git/pipeline/tasks/retrieve-params-from-opsman.sh
