@@ -13,7 +13,7 @@ uaa_creds=$($CURL --path=/api/v0/deployed/products/$cf_id/credentials/.uaa.admin
 uaa_client=$(echo $uaa_creds | jq -r .credential.value.identity)
 uaa_secret=$(echo $uaa_creds | jq -r .credential.value.password)
 
-pcf_sys_domain=$($CURL --path=/api/v0/deployed/products | jq -r '.instance_groups[] | select(.name == "autoscaling") | .jobs[] | select (.name == "deploy-autoscaling") | .properties.doppler.host')
+pcf_sys_domain=$($CURL --path=/api/v0/deployed/products/$cf_id/manifest | jq -r '.instance_groups[] | select(.name == "autoscaling") | .jobs[] | select (.name == "deploy-autoscaling") | .properties.doppler.host')
 
 echo "Creating Prometheus UAA Client..."
 uaac target https://uaa.${pcf_sys_domain} --skip-ssl-validation
@@ -32,7 +32,7 @@ uaac client add cf_exporter \
   --authorities cloud_controller.admin_read_only || true
 
 echo "Getting BOSH director IP..."
-director_id=$($CURL --path=/api/v0/deployed/products | jq -r ".[].guid" | grep p-bosh)
+director_id=$($CURL --path=/api/v0/deployed/products | jq -r '.[] | select (.type == "p-bosh") | .guid'
 director_ip=$($CURL --path=/api/v0/deployed/products/$director_id/static_ips | jq -r .[0].ips[0])
 
 echo "Getting BOSH UAA creds..."
