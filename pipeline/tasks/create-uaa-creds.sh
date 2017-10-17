@@ -13,7 +13,7 @@ uaa_creds=$($CURL --path=/api/v0/deployed/products/$cf_id/credentials/.uaa.admin
 uaa_client=$(echo $uaa_creds | jq -r .credential.value.identity)
 uaa_secret=$(echo $uaa_creds | jq -r .credential.value.password)
 
-pcf_sys_domain=$($CURL --path=/api/v0/deployed/products/$cf_id/manifest | jq -r '.instance_groups[] | select(.name == "autoscaling") | .jobs[] | select (.name == "deploy-autoscaling") | .properties.doppler.host')
+pcf_sys_domain=$($CURL --path=/api/v0/deployed/products/$cf_id/manifest | jq -r '.instance_groups[] | select (.name == "cloud_controller") | .jobs[] | select (.name == "cloud_controller_ng") | .properties.system_domain')
 
 echo "Creating Prometheus UAA Client..."
 uaac target https://uaa.${pcf_sys_domain} --skip-ssl-validation
