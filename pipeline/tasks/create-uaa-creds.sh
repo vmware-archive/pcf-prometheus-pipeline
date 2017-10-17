@@ -14,10 +14,10 @@ uaa_client=$(echo $uaa_creds | jq -r .credential.value.identity)
 uaa_secret=$(echo $uaa_creds | jq -r .credential.value.password)
 
 # TODO this command works but how can we pass that to the deploy job?
-#pcf_sys_domain=$($CURL --path=/api/v0/deployed/products/$cf_id/manifest | jq -r '.instance_groups[] | select (.name == "cloud_controller") | .jobs[] | select (.name == "cloud_controller_ng") | .properties.system_domain')
+#system_domain=$($CURL --path=/api/v0/deployed/products/$cf_id/manifest | jq -r '.instance_groups[] | select (.name == "cloud_controller") | .jobs[] | select (.name == "cloud_controller_ng") | .properties.system_domain')
 
 echo "Creating Prometheus UAA Client..."
-uaac target https://uaa.${pcf_sys_domain} --skip-ssl-validation
+uaac target https://uaa.${system_domain} --skip-ssl-validation
 uaac token client get ${uaa_client} -s ${uaa_secret}
 uaac client add firehose_exporter \
   --name firehose_exporter \
