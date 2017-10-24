@@ -24,7 +24,6 @@ Notes:
 * if you deploy the bosh release using the provided manifest, exporters are colocated with Prometheus (except node_exporter which is a BOSH add-on and runs on all VMs)
   NOTE: of course you can create your own manifest or an ops file to deploy jobs in a different way
 * prometheus-boshrelease includes a number of other exporters you can use which are not used in this example; you can see them [here](https://github.com/cloudfoundry-community/prometheus-boshrelease/tree/master/manifests/operators)
-* in a production environment you should probably put firehose_exporter on a separate VM to scale it out independently
 
 ## Installation
 It is recommended to use the pipeline to deploy Prometheus (or anything else for that matter). To do that:
@@ -32,15 +31,12 @@ It is recommended to use the pipeline to deploy Prometheus (or anything else for
 - copy params.yml to a different place
 - edit the params accordingly (there are helpful comments)
 - fly -t target set-pipeline -p deploy-prometheus -c pipeline/pipeline.yml -l your-params.yml
-- run the pipeline
+- unpause the pipeline
+- trigger create-uaa-clients job manually
 
 ## Manual installation
 
-```
-TODO
-```
-
-You can find root_ca_certificate file on the OpsManager VM in ```/var/tempest/workspaces/default/root_ca_certificate```.
+Please use the pipeline above if you can. If you do, you don't have to read any further.
 
 ### Create UAA clients
 If you are using the pipeline, UAA clients are created automatically so you don't need to do this.
@@ -52,14 +48,14 @@ This process is explained here: https://github.com/cloudfoundry-community/fireho
 ```bash
 uaac target https://uaa.SYSTEM_DOMAIN --skip-ssl-validation
 uaac token client get admin -s <YOUR ADMIN CLIENT SECRET>
-uaac client add prometheus-firehose \
-  --name prometheus-firehose \
+uaac client add firehose_exporter \
+  --name firehose_exporter \
   --secret prometheus-client-secret \
   --authorized_grant_types client_credentials,refresh_token \
   --authorities doppler.firehose
 
-uaac client add prometheus-cf \
-  --name prometheus-cf \
+uaac client add cf_exporter \
+  --name cf_exporter \
   --secret prometheus-cf-client-secret \
   --authorized_grant_types client_credentials,refresh_token \
   --authorities cloud_controller.admin
@@ -72,8 +68,8 @@ uaac target https://BOSH_DIRECTOR:8443 --skip-ssl-validation
 uaac token owner get login -s Uaa-Login-Client-Credentials
 User name:  admin
 Password:  Uaa-Admin-User-Credentials
-  uaac client add prometheus-bosh \
-  --name prometheus-bosh \
+  uaac client add bosh_exporter \
+  --name bosh_exporter \
   --secret prometheus-client-secret \
   --authorized_grant_types client_credentials,refresh_token \
   --authorities bosh.read \

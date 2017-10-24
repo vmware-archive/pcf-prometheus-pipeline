@@ -40,11 +40,11 @@ resources:
   type: bosh-deploy
 
 jobs:
-- name: create-uaa-creds
+- name: create-uaa-clients
   plan:
   - get: pcf-prometheus-git
-  - task: create-uaa-creds
-    file: pcf-prometheus-git/pipeline/tasks/create-uaa-creds.yml
+  - task: create-uaa-clients
+    file: pcf-prometheus-git/pipeline/tasks/create-uaa-clients.yml
     params:
       opsman_url: ((opsman_url))
       pcf_opsman_admin_username: ((pcf_opsman_admin_username))
@@ -58,7 +58,7 @@ jobs:
   - aggregate:
     - get: node-exporter-release
     - get: pcf-prometheus-git
-      passed: [create-uaa-creds]
+      passed: [create-uaa-clients]
     - get: pcf-bosh-creds # FIXME add an option to deploy to a different Director
   - task: install-node-exporter
     file: pcf-prometheus-git/pipeline/tasks/install-node-exporter.yml

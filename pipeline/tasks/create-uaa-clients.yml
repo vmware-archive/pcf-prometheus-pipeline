@@ -18,4 +18,4 @@ params:
   uaa_clients_cf_exporter_secret:
 
 run:
-  path: pcf-prometheus-git/pipeline/tasks/create-uaa-creds.sh
+  path: pcf-prometheus-git/pipeline/tasks/create-uaa-clients.sh
