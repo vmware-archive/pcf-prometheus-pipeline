@@ -1,7 +1,7 @@
 #!/bin/bash
 
-mkdir pcf-prometheus-git/params || true
-PARAMS_FILE=pcf-prometheus-git/params/params.yml
+mkdir params || true
+PARAMS_FILE=params/params.yml
 rm -f ${PARAMS_FILE}
 
 CURL="om --target https://${opsman_url} -k \
