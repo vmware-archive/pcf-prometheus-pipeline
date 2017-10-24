@@ -10,7 +10,7 @@ inputs:
 - name: pcf-prometheus-git
 
 outputs:
-- name: params
+- name: pcf-prometheus-git
 
 params:
   opsman_url:
