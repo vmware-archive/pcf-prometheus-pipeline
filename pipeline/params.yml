@@ -3,10 +3,6 @@ pcf_opsman_admin_username:
 pcf_opsman_admin_password:
 opsman_url:
 
-
-# GitHub token with repo or public_repo scope
-github_token: 
-
 # set to something secure!
 uaa_clients_firehose_exporter_secret:
 uaa_clients_cf_exporter_secret:
