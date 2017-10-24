@@ -109,7 +109,7 @@ jobs:
         prometheus_password: ((prometheus_admin_password))
         vm_type_micro: ((deploy_vm_type_micro))
         vm_type_small: ((deploy_vm_type_small))
-        metrics_environment: ((prometheus_cf_deployment_name)) # FIXME consider renaming the variable
+        metrics_environment: ((metrics_environment))
         uaa_clients_cf_exporter_secret: ((uaa_clients_cf_exporter_secret))
         uaa_clients_firehose_exporter_secret: ((uaa_clients_firehose_exporter_secret))
         uaa_bosh_exporter_client_secret: ((uaa_bosh_exporter_client_secret))
