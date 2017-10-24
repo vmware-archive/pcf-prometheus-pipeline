@@ -1,31 +1,38 @@
 # Operations Manager credentials to set
-pcf_opsman_admin_username: user
-pcf_opsman_admin_password: password
-opsman_url: opsman.doma.in
+pcf_opsman_admin_username:
+pcf_opsman_admin_password:
+opsman_url:
+
 
 # GitHub token with repo or public_repo scope
-github_token: some_token
+github_token: 
 
-traffic_controller_external_port: 443
+# set to something secure!
+uaa_clients_firehose_exporter_secret:
+uaa_clients_cf_exporter_secret:
+uaa_bosh_exporter_client_secret:
 
-uaa_bosh_exporter_client_secret: prometheus-client-secret
-uaa_clients_firehose_exporter_secret: prometheus-client-secret
-uaa_clients_cf_exporter_secret: prometheus-client-secret
+# This will be the admin password to log in to Grafana GUI
+grafana_admin_password:
+# This will be the admin password to log in to Prometheus GUI
+prometheus_admin_password:
 
-deploy_azs: "[az1, az2]"
-deploy_network: infrastructure
-deploy_vm_password: #(echo -n 'YOUR_PASSWORD' | mkpasswd --method=sha-512 --password-fd=0)
+# adjust as needed
+deploy_azs: [europe-west1-d]
+deploy_network: [{name: pcf-net}]
+
+# This parameter is ignored if deploying to OpsManager-managed BOSH Director
 deploy_nginx_ip: 1.1.1.1
+
+#
+# Parameters below are fine if you are just kicking tyres
+#
+
+# These values work for a small deployment on PCF. Change to adjust resources
 deploy_vm_type_micro: micro
 deploy_vm_type_small: small
 
-pcf_bosh_creds_source: opsman
-deploy_bosh_creds_source: opsman
+# arbitrary name for this environment (eg. 'prod')
+metrics_environment: pcf
 
-# Fill in if you use `bosh_creds_source: manual`
-bosh_username: ""
-bosh_password: ""
-director_ip: ""
-bosh_ca: ""
-
-grafana_admin_password: grafana!
+skip_ssl_verify: true
