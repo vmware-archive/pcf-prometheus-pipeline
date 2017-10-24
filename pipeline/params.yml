@@ -11,7 +11,6 @@ traffic_controller_external_port: 443
 uaa_bosh_exporter_client_secret: prometheus-client-secret
 uaa_clients_firehose_exporter_secret: prometheus-client-secret
 uaa_clients_cf_exporter_secret: prometheus-client-secret
-prometheus_cf_deployment_name: cf
 
 deploy_azs: "[az1, az2]"
 deploy_network: infrastructure

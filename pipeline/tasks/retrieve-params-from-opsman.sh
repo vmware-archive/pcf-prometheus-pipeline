@@ -1,7 +1,7 @@
 #!/bin/bash
 
-mkdir params || true
-PARAMS_FILE=params/params.yml
+mkdir dynamic-params || true
+PARAMS_FILE=dynamic-params/params.yml
 rm -f ${PARAMS_FILE}
 
 CURL="om --target https://${opsman_url} -k \

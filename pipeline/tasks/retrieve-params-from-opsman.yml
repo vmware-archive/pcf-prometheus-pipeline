@@ -9,6 +9,9 @@ image_resource:
 inputs:
 - name: pcf-prometheus-git
 
+outputs:
+- name: dynamic-params
+
 params:
   opsman_url:
   pcf_opsman_admin_username:
