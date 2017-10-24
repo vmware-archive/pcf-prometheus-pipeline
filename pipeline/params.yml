@@ -3,7 +3,7 @@ pcf_opsman_admin_username:
 pcf_opsman_admin_password:
 opsman_url:
 
-# set to something secure!
+# set to something very secure! you won't need to use these passwords at all
 uaa_clients_firehose_exporter_secret:
 uaa_clients_cf_exporter_secret:
 uaa_bosh_exporter_client_secret:
@@ -13,16 +13,17 @@ grafana_admin_password:
 # This will be the admin password to log in to Prometheus GUI
 prometheus_admin_password:
 
-# adjust as needed
+# AZ(s) to deploy to (as defined in the Director configuration)
 deploy_azs: [europe-west1-d]
+# network to deploy to (as defined in the Director configuration)
 deploy_network: [{name: pcf-net}]
-
-# This parameter is ignored if deploying to OpsManager-managed BOSH Director
-deploy_nginx_ip: 1.1.1.1
 
 #
 # Parameters below are fine if you are just kicking tyres
 #
+
+# This parameter is ignored if deploying to OpsManager-managed BOSH Director
+deploy_nginx_ip: 1.1.1.1
 
 # These values work for a small deployment on PCF. Change to adjust resources
 deploy_vm_type_micro: micro
@@ -32,3 +33,4 @@ deploy_vm_type_small: small
 metrics_environment: pcf
 
 skip_ssl_verify: true
+
