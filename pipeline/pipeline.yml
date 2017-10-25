@@ -3,7 +3,7 @@ resource_types:
   type: docker-image
   source:
     repository: mkuratczyk/bosh-creds-resource
-    tag: 0.9
+    tag: 1.0
 - name: bosh-deploy
   type: docker-image
   source:
@@ -36,6 +36,10 @@ resources:
     pcf_opsman_admin_username: ((pcf_opsman_admin_username))
     pcf_opsman_admin_password: ((pcf_opsman_admin_password))
     opsman_url: ((opsman_url))
+    external_bosh_address: ((external_bosh_address))
+    external_bosh_client: ((external_bosh_client))
+    external_bosh_client_secret: ((external_bosh_client_secret))
+    external_bosh_ca_cert: ((external_bosh_ca_cert))
 - name: bosh-deployment
   type: bosh-deploy
 
@@ -59,7 +63,7 @@ jobs:
     - get: node-exporter-release
     - get: pcf-prometheus-git
       passed: [create-uaa-clients]
-    - get: pcf-bosh-creds # FIXME add an option to deploy to a different Director
+    - get: pcf-bosh-creds
   - task: install-node-exporter
     file: pcf-prometheus-git/pipeline/tasks/install-node-exporter.yml
 
@@ -80,8 +84,7 @@ jobs:
       opsman_url: ((opsman_url))
   - put: bosh-deployment
     params:
-      # FIXME
-      source_file: pcf-bosh-creds/bosh_source.json
+      source_file: pcf-bosh-creds/((director_for_deployment)).json
       deployment: prometheus
       manifest: prometheus-git-repo/manifests/prometheus.yml
       releases:

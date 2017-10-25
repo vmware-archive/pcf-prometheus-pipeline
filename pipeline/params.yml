@@ -3,6 +3,15 @@ pcf_opsman_admin_username:
 pcf_opsman_admin_password:
 opsman_url:
 
+# Set to either opsman_bosh or external_bosh. For external BOSH you need to provide the details below
+director_for_deployment: opsman_bosh
+
+# If you set director_for_deployment to external_bosh then you need to provide the Director details. Otherwise keep them empty
+external_bosh_address:
+external_bosh_client:
+external_bosh_client_secret:
+external_bosh_ca_cert:
+
 # set to something very secure! you won't need to use these passwords at all
 uaa_clients_firehose_exporter_secret:
 uaa_clients_cf_exporter_secret:
