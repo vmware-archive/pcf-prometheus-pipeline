@@ -3,7 +3,7 @@ resource_types:
   type: docker-image
   source:
     repository: mkuratczyk/bosh-creds-resource
-    tag: 1.0
+    tag: 1.1
 - name: bosh-deploy
   type: docker-image
   source:
@@ -25,11 +25,13 @@ resources:
   source:
     user: cloudfoundry-community
     repository: prometheus-boshrelease
+    access_token: ((github_token))  
 - name: node-exporter-release
   type: github-release
   source:
     user: cloudfoundry-community
     repository: node-exporter-boshrelease
+    access_token: ((github_token))
 - name: pcf-bosh-creds
   type: bosh-creds
   source:
