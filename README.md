@@ -14,6 +14,7 @@ This is currently work in progress. Key changes I'm working on:
 - switch to [bosh-deployment resource](https://github.com/cloudfoundry/bosh-deployment-resource)
 - switch everything to [BOSH CLI v2](https://github.com/cloudfoundry/bosh-cli)
 - make sure it works perfectly on PCF 1.12 (I'm not testing with older versions)
+- use named runtime config (name=node_exporter)
 
 # How it works
 This is a high-level overview of monitoring Cloud Foundry with Prometheus
