@@ -1,6 +1,6 @@
 releases:
 - name: node-exporter
-  version: ((version))
+  version: ((node_exporter_version))
 
 addons:
 - name: node_exporter
