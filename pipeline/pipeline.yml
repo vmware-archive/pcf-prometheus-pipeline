@@ -95,6 +95,7 @@ jobs:
       - prometheus-git-repo/manifests/operators/monitor-bosh.yml
       - prometheus-git-repo/manifests/operators/enable-bosh-uaa.yml
       - prometheus-git-repo/manifests/operators/monitor-cf.yml
+      - prometheus-git-repo/manifests/operators/monitor-node.yml
       - pcf-prometheus-git/pcf-cloud-config-ops.yml
       vars:
         network: ((deploy_network))
