@@ -13,4 +13,5 @@ login_to_director pcf-bosh-creds
 echo "Uploading Node exporter Release..."
 bosh2 -n upload-release node-exporter-release/node-exporter-*.tgz
 
-bosh2 -n update-runtime-config --name=node_exporter pcf-prometheus-git/runtime.yml
+node_exporter_version=$(cat node-exporter-release/version)
+bosh2 -n update-runtime-config --name=node_exporter pcf-prometheus-git/runtime.yml -v node_exporter_version=${node_exporter_version}
