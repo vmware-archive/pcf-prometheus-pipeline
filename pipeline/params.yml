@@ -27,6 +27,9 @@ deploy_azs: [europe-west1-d]
 # network to deploy to (as defined in the Director configuration)
 deploy_network: [{name: pcf-net}]
 
+# Github token to authenticate with Github. You can generate one at https://github.com/settings/tokens
+github_token:
+
 #
 # Parameters below are fine if you are just kicking tyres
 #
