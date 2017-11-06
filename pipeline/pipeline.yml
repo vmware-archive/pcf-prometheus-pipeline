@@ -112,3 +112,12 @@ jobs:
       vars_files:
         - pcf-bosh-creds/pcf_bosh_director.yml
         - dynamic-params/params.yml
+
+- name: destroy
+  plan:
+  - get: pcf-prometheus-git
+  - get: pcf-bosh-creds
+  - task: delete-deployment
+    file: pcf-prometheus-git/pipeline/tasks/delete-prometheus.yml
+    params:
+      deployment: prometheus
