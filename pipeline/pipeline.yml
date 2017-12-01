@@ -18,18 +18,18 @@ resources:
 - name: prometheus-git-repo
   type: git
   source:
-    uri: https://github.com/cloudfoundry-community/prometheus-boshrelease.git
+    uri: https://github.com/bosh-prometheus/prometheus-boshrelease.git
     branch: master 
 - name: prometheus-release
   type: github-release
   source:
-    user: cloudfoundry-community
+    user: bosh-prometheus
     repository: prometheus-boshrelease
     access_token: ((github_token))  
 - name: node-exporter-release
   type: github-release
   source:
-    user: cloudfoundry-community
+    user: bosh-prometheus
     repository: node-exporter-boshrelease
     access_token: ((github_token))
 - name: pcf-bosh-creds
