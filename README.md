@@ -1,20 +1,7 @@
-
-**WARNING**  
-**WARNING**  
-**WARNING**  
-The old version of this repository is deprecated. If you need it, please use [this tag](https://github.com/pivotal-cf/prometheus-on-PCF/tree/74fba4b3401340278d9cb66b4a8076b328de37b8)  
-**WARNING**  
-**WARNING**  
-**WARNING**  
+This pipeline is only compatible with PCF 1.12 and newer. If you are using an older version then please use [this pipeline](https://github.com/pivotal-cf/prometheus-on-PCF/tree/74fba4b3401340278d9cb66b4a8076b328de37b8) instead.
 
 # Prometheus BOSH release on Pivotal Cloud Foundry
-
-This is currently work in progress. Key changes I'm working on:
-- use manifests from prometheus-boshrelease (with the [required modifications](pcf-cloud-config-ops.yml))
-- switch to [bosh-deployment resource](https://github.com/cloudfoundry/bosh-deployment-resource)
-- switch everything to [BOSH CLI v2](https://github.com/cloudfoundry/bosh-cli)
-- make sure it works perfectly on PCF 1.12 (I'm not testing with older versions)
-- use named runtime config (name=node_exporter)
+This pipeline deployed Prometheus BOSH release to monitor PCF. You can deploy it either to the OpsManager Director or a separate BOSH Director.
 
 # How it works
 This is a high-level overview of monitoring Cloud Foundry with Prometheus
