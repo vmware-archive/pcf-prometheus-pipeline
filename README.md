@@ -49,7 +49,7 @@ There is a number of ready to use Dashboards that should be installed automatica
 
 ## Alertmanager
 
-*Warning*
+**Warning**
 Current version doesn't allow you to easily configure your alertmanager notifications. This should be fixed soon.
 
 The `prometheus-boshrelease` does include some predefined alerts for CloudFoundry as well as for BOSH. You can find the alert definitions in [prometheus-boshrelease/jobs](https://github.com/cloudfoundry-community/prometheus-boshrelease/tree/master/jobs). Check the `*.alerts` rule files in the corresponding folders.
