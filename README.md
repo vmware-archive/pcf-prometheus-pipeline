@@ -1,4 +1,4 @@
-# Concourse pipeline deploying Prometheus BOSH release to monitor Pivotal Cloud Foundry
+# Concourse pipeline for deploying Prometheus to monitor Pivotal Cloud Foundry
 
 This pipeline is only compatible with PCF 1.12 and newer. If you are using an older version then please use [this pipeline](https://github.com/pivotal-cf/prometheus-on-PCF/tree/74fba4b3401340278d9cb66b4a8076b328de37b8) instead.
 
@@ -8,9 +8,11 @@ Main differences compared to the old pipeline:
 - it deploys more VMs (firehose_exporter has a dedicated VM, there is a database for Grafana)
 - pipeline property names changed to match the manifests
 - it automatically discovers some of the properties by querying OpsManager (that's why it requires PCF 1.12+)
+- it uses a named runtime-config (a relatively new BOSH feature)
 - it only uses BOSH CLI v2 (directly and through [BOSH Deployment Resource](https://github.com/cloudfoundry/bosh-deployment-resource))
 
-This pipeline deployed Prometheus BOSH release to monitor PCF. You can deploy it either to the OpsManager Director or a separate BOSH Director.
+This pipeline deploys Prometheus BOSH release to monitor PCF but can be deployed to a separate BOSH Director.
+Use `director_for_deployment` property to configure whether you want to deploy it to OpsManager Director or a separate BOSH Director.
 
 ## How it works
 
