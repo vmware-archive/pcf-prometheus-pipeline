@@ -14,7 +14,7 @@ resources:
   type: git
   source:
     uri: https://github.com/pivotal-cf/pcf-prometheus-pipeline.git
-    branch: master 
+    branch: master
 - name: prometheus-git-repo
   type: git
   source:
@@ -121,3 +121,6 @@ jobs:
     file: pcf-prometheus-git/pipeline/tasks/delete-prometheus.yml
     params:
       deployment: prometheus
+      opsman_url: ((opsman_url))
+      pcf_opsman_admin_username: ((pcf_opsman_admin_username))
+      pcf_opsman_admin_password: ((pcf_opsman_admin_password))
