@@ -12,6 +12,9 @@ inputs:
 
 params:
   deployment:
+  opsman_url:
+  pcf_opsman_admin_username:
+  pcf_opsman_admin_password:
 
 run:
   path: pcf-prometheus-git/pipeline/tasks/delete-prometheus.sh
