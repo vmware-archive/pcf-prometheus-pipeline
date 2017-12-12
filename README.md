@@ -17,7 +17,7 @@ Use `director_for_deployment` property to configure whether you want to deploy i
 ## How it works
 
 This is a high-level overview of monitoring Cloud Foundry with Prometheus
-![logical diagram](https://github.com/mkuratczyk/prometheus-on-PCF/blob/master/docs/logical-diagram.png)
+![logical diagram](https://github.com/pivotal-cf/pcf-prometheus-pipeline/blob/master/docs/logical-diagram.png)
 
 Notes:
 

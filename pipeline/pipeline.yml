@@ -13,7 +13,7 @@ resources:
 - name: pcf-prometheus-git
   type: git
   source:
-    uri: https://github.com/mkuratczyk/prometheus-on-PCF.git
+    uri: https://github.com/pivotal-cf/pcf-prometheus-pipeline.git
     branch: master 
 - name: prometheus-git-repo
   type: git
