@@ -31,11 +31,8 @@ deploy_network: [{name: pcf-net}]
 github_token:
 
 #
-# Parameters below are fine if you are just kicking tyres
+# Parameters below are fine if you are just kicking tires
 #
-
-# This parameter is ignored if deploying to OpsManager-managed BOSH Director
-deploy_nginx_ip: 1.1.1.1
 
 # These values work for a small deployment on PCF. Change to adjust resources
 deploy_vm_type_micro: micro
@@ -45,4 +42,3 @@ deploy_vm_type_small: small
 metrics_environment: pcf
 
 skip_ssl_verify: true
-
