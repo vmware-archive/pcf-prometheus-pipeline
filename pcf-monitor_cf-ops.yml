@@ -1,0 +1,8 @@
+
+- type: replace
+  path: /instance_groups/name=prometheus/jobs/name=prometheus/properties/prometheus/scrape_configs/-
+  value:
+      job_name: cf_exporter
+      static_configs:
+      - targets:
+        - localhost:9193
