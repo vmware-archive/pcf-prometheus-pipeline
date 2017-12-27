@@ -3,7 +3,7 @@ resource_types:
   type: docker-image
   source:
     repository: mkuratczyk/bosh-creds-resource
-    tag: 1.1
+    tag: 1.3
 - name: bosh-deploy
   type: docker-image
   source:
@@ -124,3 +124,4 @@ jobs:
       opsman_url: ((opsman_url))
       pcf_opsman_admin_username: ((pcf_opsman_admin_username))
       pcf_opsman_admin_password: ((pcf_opsman_admin_password))
+      director_for_deployment: ((director_for_deployment))

@@ -2,8 +2,11 @@
 
 function login_to_director() {
 	CREDS=${1}
+	DIRECTOR_FOR_DEPLOYMENT=${2}
 
-	if [[ -f $CREDS/bosh2_commandline_credentials ]]; then
+	if [[ ${DIRECTOR_FOR_DEPLOYMENT} == "external_bosh" ]]; then
+		source "$CREDS/external_bosh.sh"
+	elif [[ -f $CREDS/bosh2_commandline_credentials ]]; then
 		source "$CREDS/bosh2_commandline_credentials"
 	else
 		export BOSH_CA_CERT=$(cat "$CREDS/bosh-ca.pem")
