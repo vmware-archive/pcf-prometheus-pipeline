@@ -10,17 +10,17 @@ resource_types:
     repository: cloudfoundry/bosh-deployment-resource
 
 resources:
-- name: pcf-prometheus-git
+- name: pcf-prometheus-pipeline
   type: git
   source:
     uri: https://github.com/pivotal-cf/pcf-prometheus-pipeline.git
     branch: master
-- name: prometheus-git-repo
+- name: prometheus-release-git
   type: git
   source:
     uri: https://github.com/bosh-prometheus/prometheus-boshrelease.git
     branch: master 
-- name: prometheus-release
+- name: prometheus-release-blob
   type: github-release
   source:
     user: bosh-prometheus
@@ -48,7 +48,7 @@ resources:
 jobs:
 - name: create-uaa-clients
   plan:
-  - get: pcf-prometheus-git
+  - get: pcf-prometheus-pipeline
   - task: create-uaa-clients
     file: pcf-prometheus-git/pipeline/tasks/create-uaa-clients.yml
     params:
@@ -63,7 +63,7 @@ jobs:
   plan:
   - aggregate:
     - get: node-exporter-release
-    - get: pcf-prometheus-git
+    - get: pcf-prometheus-pipeline
       passed: [create-uaa-clients]
     - get: pcf-bosh-creds
   - task: install-node-exporter
@@ -71,10 +71,10 @@ jobs:
 
 - name: deploy
   plan:
-  - get: pcf-prometheus-git
+  - get: pcf-prometheus-pipeline
     passed: [install-node-exporter]
-  - get: prometheus-git-repo
-  - get: prometheus-release
+  - get: prometheus-release-git
+  - get: prometheus-release-blob
   - get: pcf-bosh-creds
     params:
       deployment: prometheus
@@ -115,7 +115,7 @@ jobs:
 
 - name: destroy
   plan:
-  - get: pcf-prometheus-git
+  - get: pcf-prometheus-pipeline
   - get: pcf-bosh-creds
   - task: delete-deployment
     file: pcf-prometheus-git/pipeline/tasks/delete-prometheus.yml
