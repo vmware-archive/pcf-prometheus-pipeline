@@ -8,8 +8,8 @@ image_resource:
 
 inputs:
 - name: node-exporter-release
-- name: pcf-prometheus-git
+- name: pcf-prometheus-pipeline
 - name: pcf-bosh-creds
 
 run:
-  path: pcf-prometheus-git/pipeline/tasks/install-node-exporter.sh
+  path: pcf-prometheus-pipeline/pipeline/tasks/install-node-exporter.sh

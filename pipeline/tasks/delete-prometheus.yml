@@ -7,7 +7,7 @@ image_resource:
     repository: starkandwayne/concourse
 
 inputs:
-- name: pcf-prometheus-git
+- name: pcf-prometheus-pipeline
 - name: pcf-bosh-creds
 
 params:
@@ -18,4 +18,4 @@ params:
   director_for_deployment:
 
 run:
-  path: pcf-prometheus-git/pipeline/tasks/delete-prometheus.sh
+  path: pcf-prometheus-pipeline/pipeline/tasks/delete-prometheus.sh
