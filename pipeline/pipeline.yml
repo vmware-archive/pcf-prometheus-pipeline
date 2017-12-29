@@ -50,7 +50,7 @@ jobs:
   plan:
   - get: pcf-prometheus-pipeline
   - task: create-uaa-clients
-    file: pcf-prometheus-git/pipeline/tasks/create-uaa-clients.yml
+    file: pcf-prometheus-pipeline/pipeline/tasks/create-uaa-clients.yml
     params:
       opsman_url: ((opsman_url))
       pcf_opsman_admin_username: ((pcf_opsman_admin_username))
@@ -67,7 +67,7 @@ jobs:
       passed: [create-uaa-clients]
     - get: pcf-bosh-creds
   - task: install-node-exporter
-    file: pcf-prometheus-git/pipeline/tasks/install-node-exporter.yml
+    file: pcf-prometheus-pipeline/pipeline/tasks/install-node-exporter.yml
 
 - name: deploy
   plan:
@@ -79,7 +79,7 @@ jobs:
     params:
       deployment: prometheus
   - task: retrieve-params-from-opsman
-    file: pcf-prometheus-git/pipeline/tasks/retrieve-params-from-opsman.yml
+    file: pcf-prometheus-pipeline/pipeline/tasks/retrieve-params-from-opsman.yml
     params:
       pcf_opsman_admin_username: ((pcf_opsman_admin_username))
       pcf_opsman_admin_password: ((pcf_opsman_admin_password))
@@ -88,15 +88,15 @@ jobs:
     params:
       source_file: pcf-bosh-creds/((director_for_deployment)).json
       deployment: prometheus
-      manifest: prometheus-git-repo/manifests/prometheus.yml
+      manifest: prometheus-release-git/manifests/prometheus.yml
       releases:
-      - prometheus-release/prometheus-*.tgz
+      - prometheus-release-blob/prometheus-*.tgz
       ops_files:
-      - prometheus-git-repo/manifests/operators/monitor-bosh.yml
-      - prometheus-git-repo/manifests/operators/enable-bosh-uaa.yml
-      - prometheus-git-repo/manifests/operators/monitor-cf.yml
-      - prometheus-git-repo/manifests/operators/monitor-node.yml
-      - pcf-prometheus-git/pcf-cloud-config-ops.yml
+      - prometheus-release-git/manifests/operators/monitor-bosh.yml
+      - prometheus-release-git/manifests/operators/enable-bosh-uaa.yml
+      - prometheus-release-git/manifests/operators/monitor-cf.yml
+      - prometheus-release-git/manifests/operators/monitor-node.yml
+      - pcf-prometheus-pipeline/pcf-cloud-config-ops.yml
       vars:
         network: ((deploy_network))
         azs: ((deploy_azs))
@@ -118,7 +118,7 @@ jobs:
   - get: pcf-prometheus-pipeline
   - get: pcf-bosh-creds
   - task: delete-deployment
-    file: pcf-prometheus-git/pipeline/tasks/delete-prometheus.yml
+    file: pcf-prometheus-pipeline/pipeline/tasks/delete-prometheus.yml
     params:
       deployment: prometheus
       opsman_url: ((opsman_url))

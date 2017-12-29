@@ -33,5 +33,5 @@ if [[ "${mysql_address}" != "null" ]]; then
   echo "mysql_address: ${mysql_address}" >> ${PARAMS_FILE}
   echo "mysql_username: ${mysql_username}" >> ${PARAMS_FILE}
   echo "mysql_password: ${mysql_password}" >> ${PARAMS_FILE}
-  ln -s prometheus-git-repo/manifests/operators/monitor-mysql.yml ${OPS_DIR}/monitor-mysql.yml
+  ln -s prometheus-release-git/manifests/operators/monitor-mysql.yml ${OPS_DIR}/monitor-mysql.yml
 fi
