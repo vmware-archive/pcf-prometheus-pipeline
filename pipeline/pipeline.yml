@@ -97,6 +97,8 @@ jobs:
       - prometheus-git-repo/manifests/operators/monitor-cf.yml
       - prometheus-git-repo/manifests/operators/monitor-node.yml
       - pcf-prometheus-git/pcf-cloud-config-ops.yml
+      - pcf-prometheus-git/pcf-colocate-firehose_exporter.yml
+      - pcf-prometheus-git/pcf-local-cf_exporter.yml
       vars:
         network: ((deploy_network))
         azs: ((deploy_azs))
