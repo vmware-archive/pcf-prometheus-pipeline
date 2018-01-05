@@ -19,13 +19,13 @@ resources:
   type: git
   source:
     uri: https://github.com/bosh-prometheus/prometheus-boshrelease.git
-    branch: master 
+    branch: master
 - name: prometheus-release-blob
   type: github-release
   source:
     user: bosh-prometheus
     repository: prometheus-boshrelease
-    access_token: ((github_token))  
+    access_token: ((github_token))
 - name: node-exporter-release
   type: github-release
   source:
@@ -92,11 +92,13 @@ jobs:
       releases:
       - prometheus-release-blob/prometheus-*.tgz
       ops_files:
-      - prometheus-release-git/manifests/operators/monitor-bosh.yml
-      - prometheus-release-git/manifests/operators/enable-bosh-uaa.yml
-      - prometheus-release-git/manifests/operators/monitor-cf.yml
-      - prometheus-release-git/manifests/operators/monitor-node.yml
-      - pcf-prometheus-pipeline/pcf-cloud-config-ops.yml
+      - prometheus-git-repo/manifests/operators/monitor-bosh.yml
+      - prometheus-git-repo/manifests/operators/enable-bosh-uaa.yml
+      - prometheus-git-repo/manifests/operators/monitor-cf.yml
+      - prometheus-git-repo/manifests/operators/monitor-node.yml
+      - pcf-prometheus-git/pcf-cloud-config-ops.yml
+      - pcf-prometheus-git/pcf-colocate-firehose_exporter.yml
+      - pcf-prometheus-git/pcf-local-cf_exporter.yml
       vars:
         network: ((deploy_network))
         azs: ((deploy_azs))
