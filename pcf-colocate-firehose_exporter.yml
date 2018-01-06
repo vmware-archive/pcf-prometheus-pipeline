@@ -10,7 +10,7 @@
 - type: replace
   path: /instance_groups/name=prometheus/jobs/-
   value:
-  - name: firehose_exporter
+    name: firehose_exporter
     release: prometheus
     properties:
       firehose_exporter:
