@@ -1,0 +1,11 @@
+# when deploying to an external BOSH Director, Prometheus can't find cf_exporter through service discovery
+# (because it will only discover VMs managed by OpsManager Director). However, cf_exporter is actually
+# running on the Prometheus instance group so we can hardcode the localhost address
+
+- type: replace
+  path: /instance_groups/name=prometheus/jobs/name=prometheus/properties/prometheus/scrape_configs/-
+  value:
+      job_name: cf_exporter
+      static_configs:
+      - targets:
+        - localhost:9193
