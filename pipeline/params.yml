@@ -21,6 +21,8 @@ uaa_bosh_exporter_client_secret:
 grafana_admin_password:
 # This will be the admin password to log in to Prometheus GUI
 prometheus_admin_password:
+# This will be the admin password to log in to Alertmanager GUI
+alertmanager_password:
 
 # AZ(s) to deploy to (as defined in the Director configuration)
 deploy_azs: [europe-west1-d]

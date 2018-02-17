@@ -104,6 +104,7 @@ jobs:
         azs: ((deploy_azs))
         grafana_password: ((grafana_admin_password))
         prometheus_password: ((prometheus_admin_password))
+        alertmanager_password: ((alertmanager_password))
         vm_type_micro: ((deploy_vm_type_micro))
         vm_type_small: ((deploy_vm_type_small))
         metrics_environment: ((metrics_environment))
