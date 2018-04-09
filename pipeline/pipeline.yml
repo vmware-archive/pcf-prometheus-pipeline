@@ -20,6 +20,7 @@ resources:
   source:
     uri: https://github.com/bosh-prometheus/prometheus-boshrelease.git
     branch: master
+    tag_filter: v21.*
 - name: prometheus-release-blob
   type: github-release
   source:
@@ -75,6 +76,7 @@ jobs:
     passed: [install-node-exporter]
   - get: prometheus-release-git
   - get: prometheus-release-blob
+    version: { tag: 'v21.1.1' }
   - get: pcf-bosh-creds
     params:
       deployment: prometheus
