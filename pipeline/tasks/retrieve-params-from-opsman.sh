@@ -23,6 +23,9 @@ echo "system_domain: ${system_domain}" >> ${PARAMS_FILE}
 
 # In PCF 1.12 this property belongs to 'autoscaling' but in 2.0 to 'clock_global'
 doppler_url=$(jq -r '.instance_groups[] | select(.name == "clock_global" or .name == "autoscaling") | .jobs[] | select (.name == "deploy-autoscaling") | .properties.doppler.host' < /tmp/cf-manifest.yml)
+if [[ -z "$doppler_url" ]]; then
+  doppler_url=$(jq -r '.instance_groups[] | select(.name == "clock_global" or .name == "autoscaling") | .jobs[] | select(.properties.doppler.host != null) | .properties.doppler.host' < /tmp/cf-manifest.yml)
+fi
 traffic_controller_external_port=${doppler_url/*:/}
 echo "traffic_controller_external_port: ${traffic_controller_external_port}" >> ${PARAMS_FILE}
 
