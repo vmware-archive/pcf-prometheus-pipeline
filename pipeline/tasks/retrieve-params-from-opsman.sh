@@ -21,8 +21,8 @@ $CURL --path=/api/v0/deployed/products/$cf_id/manifest > /tmp/cf-manifest.yml
 system_domain=$(jq -r '.instance_groups[] | select (.name == "cloud_controller" or .name == "control") | .jobs[] | select (.name == "cloud_controller_ng") | .properties.system_domain' < /tmp/cf-manifest.yml)
 echo "system_domain: ${system_domain}" >> ${PARAMS_FILE}
 
-# In PCF 1.12 this property belongs to 'autoscaling' but in 2.0 to 'clock_global'
-doppler_url=$(jq -r '.instance_groups[] | select(.name == "clock_global" or .name == "autoscaling") | .jobs[] | select (.name == "deploy-autoscaling") | .properties.doppler.host' < /tmp/cf-manifest.yml)
+# Different versions of PCF define this property in different places
+doppler_url=$(jq -r '.instance_groups[] | select(.name == "clock_global" or .name == "autoscaling" or .name == "control") | .jobs[] | select (.name == "deploy-autoscaling" or .name == "deploy-autoscaler") | .properties.doppler.host' < /tmp/cf-manifest.yml)
 if [[ -z "$doppler_url" ]]; then
   doppler_url=$(jq -r '.instance_groups[] | select(.name == "clock_global" or .name == "autoscaling") | .jobs[] | select(.properties.doppler.host != null) | .properties.doppler.host' < /tmp/cf-manifest.yml)
 fi
