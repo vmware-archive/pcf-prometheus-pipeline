@@ -39,4 +39,4 @@ if [[ "${mysql_address}" != "null" ]]; then
   ln -s prometheus-release-git/manifests/operators/monitor-mysql.yml ${OPS_DIR}/monitor-mysql.yml
 fi
 
-cat prometheus-release-git/manifests/operators/migrate_from_prometheus_1.yml > ${OPS_DIR}/migrate_from_prometheus_1.yml
+cat prometheus-release-git/manifests/operators/migrations/migrate_from_prometheus_1.yml > ${OPS_DIR}/migrate_from_prometheus_1.yml
