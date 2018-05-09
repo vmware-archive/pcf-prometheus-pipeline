@@ -66,7 +66,7 @@ jobs:
   - aggregate:
     - get: node-exporter-release
     - get: pcf-prometheus-pipeline
-      cipassed: [create-uaa-clients]
+      passed: [create-uaa-clients]
     - get: pcf-bosh-creds
   - task: install-node-exporter
     file: pcf-prometheus-pipeline/pipeline/tasks/install-node-exporter.yml
