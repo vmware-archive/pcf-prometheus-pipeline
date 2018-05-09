@@ -38,3 +38,5 @@ if [[ "${mysql_address}" != "null" ]]; then
   echo "mysql_password: ${mysql_password}" >> ${PARAMS_FILE}
   ln -s prometheus-release-git/manifests/operators/monitor-mysql.yml ${OPS_DIR}/monitor-mysql.yml
 fi
+
+ln -s prometheus-release-git/manifests/operators/migrate_from_prometheus_1.yml ${OPS_DIR}/migrate_from_prometheus_1.yml
