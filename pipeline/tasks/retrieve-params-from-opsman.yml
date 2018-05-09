@@ -8,6 +8,7 @@ image_resource:
 
 inputs:
 - name: pcf-prometheus-pipeline
+- name: prometheus-release-git
 
 outputs:
 - name: dynamic-params
