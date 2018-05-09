@@ -1,0 +1,16 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: starkandwayne/concourse
+
+inputs:
+- name: bosh-deployment
+
+outputs:
+- name: migration
+
+run:
+  path: pcf-prometheus-pipeline/pipeline/tasks/check-if-migration-required.sh
