@@ -44,6 +44,8 @@ resources:
     external_bosh_ca_cert: ((external_bosh_ca_cert))
 - name: bosh-deployment
   type: bosh-deploy
+  source:
+    deployment: prometheus
 
 jobs:
 - name: create-uaa-clients
@@ -64,7 +66,7 @@ jobs:
   - aggregate:
     - get: node-exporter-release
     - get: pcf-prometheus-pipeline
-      passed: [create-uaa-clients]
+      cipassed: [create-uaa-clients]
     - get: pcf-bosh-creds
   - task: install-node-exporter
     file: pcf-prometheus-pipeline/pipeline/tasks/install-node-exporter.yml
@@ -76,22 +78,25 @@ jobs:
   - get: prometheus-release-git
   - get: prometheus-release-blob
   - get: pcf-bosh-creds
+  - get: bosh-deployment
     params:
-      deployment: prometheus
+      source_file: pcf-bosh-creds/((director_for_deployment)).json
   - task: retrieve-params-from-opsman
     file: pcf-prometheus-pipeline/pipeline/tasks/retrieve-params-from-opsman.yml
     params:
       pcf_opsman_admin_username: ((pcf_opsman_admin_username))
       pcf_opsman_admin_password: ((pcf_opsman_admin_password))
       opsman_url: ((opsman_url))
+  - task: check-if-migration-required
+    file: pcf-prometheus-pipeline/pipeline/tasks/check-if-migration-required.yml
   - put: bosh-deployment
     params:
       source_file: pcf-bosh-creds/((director_for_deployment)).json
-      deployment: prometheus
       manifest: prometheus-release-git/manifests/prometheus.yml
       releases:
       - prometheus-release-blob/prometheus-*.tgz
       ops_files:
+      - migration/*.yml
       - prometheus-release-git/manifests/operators/monitor-bosh.yml
       - prometheus-release-git/manifests/operators/enable-bosh-uaa.yml
       - prometheus-release-git/manifests/operators/monitor-cf.yml
