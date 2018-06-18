@@ -3,7 +3,7 @@ resource_types:
   type: docker-image
   source:
     repository: mkuratczyk/bosh-creds-resource
-    tag: 1.3
+    tag: 1.4
 - name: bosh-deploy
   type: docker-image
   source:
