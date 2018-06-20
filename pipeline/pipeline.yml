@@ -79,7 +79,7 @@ jobs:
     version: { tag: 'v21.1.1' }
   - get: pcf-bosh-creds
     params:
-      deployment: prometheus
+      deployment: ((deployment_name))
   - task: retrieve-params-from-opsman
     file: pcf-prometheus-pipeline/pipeline/tasks/retrieve-params-from-opsman.yml
     params:
@@ -89,7 +89,7 @@ jobs:
   - put: bosh-deployment
     params:
       source_file: pcf-bosh-creds/((director_for_deployment)).json
-      deployment: prometheus
+      deployment: ((deployment_name))
       manifest: prometheus-release-git/manifests/prometheus.yml
       releases:
       - prometheus-release-blob/prometheus-*.tgz
@@ -125,7 +125,7 @@ jobs:
   - task: delete-deployment
     file: pcf-prometheus-pipeline/pipeline/tasks/delete-prometheus.yml
     params:
-      deployment: prometheus
+      deployment: ((deployment_name))
       opsman_url: ((opsman_url))
       pcf_opsman_admin_username: ((pcf_opsman_admin_username))
       pcf_opsman_admin_password: ((pcf_opsman_admin_password))
