@@ -1,3 +1,6 @@
+# Deployment Name
+deployment_name: prometheus
+
 # Operations Manager credentials to set
 pcf_opsman_admin_username:
 pcf_opsman_admin_password:
