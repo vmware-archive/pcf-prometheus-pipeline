@@ -26,4 +26,4 @@ if [ $? != 0 ]; then
 fi
 
 # Prometheus v1 job exists; add migration ops file
-cp prometheus-release-git/manifests/operators/migrations/migrate_from_prometheus_1.yml "${OPS_DIR}"
+cp prometheus-release-git/manifests/operators/migrations/migrate_from_prometheus_1.yml migration/
