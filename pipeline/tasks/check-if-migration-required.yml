@@ -9,6 +9,7 @@ image_resource:
 inputs:
 - name: pcf-prometheus-pipeline
 - name: pcf-bosh-creds
+- name: prometheus-release-git
 
 outputs:
 - name: migration
