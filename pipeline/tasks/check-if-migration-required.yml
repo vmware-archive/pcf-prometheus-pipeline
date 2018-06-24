@@ -8,7 +8,7 @@ image_resource:
 
 inputs:
 - name: pcf-prometheus-pipeline
-- name: bosh-deployment
+- name: pcf-bosh-creds
 
 outputs:
 - name: migration

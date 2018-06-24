@@ -3,7 +3,7 @@ resource_types:
   type: docker-image
   source:
     repository: mkuratczyk/bosh-creds-resource
-    tag: 1.3
+    tag: 1.4
 - name: bosh-deploy
   type: docker-image
   source:
@@ -44,8 +44,6 @@ resources:
     external_bosh_ca_cert: ((external_bosh_ca_cert))
 - name: bosh-deployment
   type: bosh-deploy
-  source:
-    deployment: prometheus
 
 jobs:
 - name: create-uaa-clients
@@ -78,9 +76,8 @@ jobs:
   - get: prometheus-release-git
   - get: prometheus-release-blob
   - get: pcf-bosh-creds
-  - get: bosh-deployment
     params:
-      source_file: pcf-bosh-creds/((director_for_deployment)).json
+      deployment: ((deployment_name))
   - task: retrieve-params-from-opsman
     file: pcf-prometheus-pipeline/pipeline/tasks/retrieve-params-from-opsman.yml
     params:
@@ -89,9 +86,12 @@ jobs:
       opsman_url: ((opsman_url))
   - task: check-if-migration-required
     file: pcf-prometheus-pipeline/pipeline/tasks/check-if-migration-required.yml
+    params:
+      deployment_name: ((deployment_name))
   - put: bosh-deployment
     params:
       source_file: pcf-bosh-creds/((director_for_deployment)).json
+      deployment: ((deployment_name))
       manifest: prometheus-release-git/manifests/prometheus.yml
       releases:
       - prometheus-release-blob/prometheus-*.tgz
