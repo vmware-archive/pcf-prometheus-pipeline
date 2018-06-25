@@ -29,5 +29,6 @@ fi
 
 set -e
 
-# Prometheus v1 job exists; add migration ops file
+# Prometheus v1 job exists; add migration ops files
 cp prometheus-release-git/manifests/operators/migrations/migrate_from_prometheus_1.yml migration/
+cp pcf-prometheus-pipeline/pcf-cloud-config-ops-migration.yml migration/

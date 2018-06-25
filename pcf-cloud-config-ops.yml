@@ -3,10 +3,6 @@
   value: ((vm_type_micro))
 
 - type: replace
-  path: /instance_groups/name=prometheus?/vm_type
-  value: ((vm_type_small))
-
-- type: replace
   path: /instance_groups/name=prometheus2/vm_type
   value: ((vm_type_small))
 
@@ -31,10 +27,6 @@
   value: ((network))
 
 - type: replace
-  path: /instance_groups/name=prometheus?/networks
-  value: ((network))
-
-- type: replace
   path: /instance_groups/name=prometheus2/networks
   value: ((network))
 
@@ -56,10 +48,6 @@
 
 - type: replace
   path: /instance_groups/name=alertmanager/azs
-  value: ((azs))
-
-- type: replace
-  path: /instance_groups/name=prometheus?/azs
   value: ((azs))
 
 - type: replace
