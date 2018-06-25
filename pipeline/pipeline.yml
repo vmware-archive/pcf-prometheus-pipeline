@@ -20,7 +20,6 @@ resources:
   source:
     uri: https://github.com/bosh-prometheus/prometheus-boshrelease.git
     branch: master
-    tag_filter: v21.*
 - name: prometheus-release-blob
   type: github-release
   source:
@@ -76,7 +75,6 @@ jobs:
     passed: [install-node-exporter]
   - get: prometheus-release-git
   - get: prometheus-release-blob
-    version: { tag: 'v21.1.1' }
   - get: pcf-bosh-creds
     params:
       deployment: ((deployment_name))
@@ -86,6 +84,10 @@ jobs:
       pcf_opsman_admin_username: ((pcf_opsman_admin_username))
       pcf_opsman_admin_password: ((pcf_opsman_admin_password))
       opsman_url: ((opsman_url))
+  - task: check-if-migration-required
+    file: pcf-prometheus-pipeline/pipeline/tasks/check-if-migration-required.yml
+    params:
+      deployment_name: ((deployment_name))
   - put: bosh-deployment
     params:
       source_file: pcf-bosh-creds/((director_for_deployment)).json
@@ -94,6 +96,7 @@ jobs:
       releases:
       - prometheus-release-blob/prometheus-*.tgz
       ops_files:
+      - migration/*.yml
       - prometheus-release-git/manifests/operators/monitor-bosh.yml
       - prometheus-release-git/manifests/operators/enable-bosh-uaa.yml
       - prometheus-release-git/manifests/operators/monitor-cf.yml

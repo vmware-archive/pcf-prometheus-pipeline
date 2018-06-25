@@ -8,15 +8,11 @@ image_resource:
 
 inputs:
 - name: pcf-prometheus-pipeline
+- name: pcf-bosh-creds
 - name: prometheus-release-git
 
 outputs:
-- name: dynamic-params
-
-params:
-  opsman_url:
-  pcf_opsman_admin_username:
-  pcf_opsman_admin_password:
+- name: migration
 
 run:
-  path: pcf-prometheus-pipeline/pipeline/tasks/retrieve-params-from-opsman.sh
+  path: pcf-prometheus-pipeline/pipeline/tasks/check-if-migration-required.sh

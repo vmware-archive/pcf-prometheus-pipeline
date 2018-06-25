@@ -8,7 +8,7 @@
 
 # run firehose_exporter job on the prometheus instance_group
 - type: replace
-  path: /instance_groups/name=prometheus/jobs/-
+  path: /instance_groups/name=prometheus2/jobs/-
   value:
     name: firehose_exporter
     release: prometheus
@@ -28,7 +28,7 @@
 
 # add local firehose_exporter as a target
 - type: replace
-  path: /instance_groups/name=prometheus/jobs/name=prometheus/properties/prometheus/scrape_configs/-
+  path: /instance_groups/name=prometheus2/jobs/name=prometheus2/properties/prometheus/scrape_configs/-
   value:
     job_name: firehose_exporter
     static_configs:
