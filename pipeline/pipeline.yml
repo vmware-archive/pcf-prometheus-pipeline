@@ -14,7 +14,7 @@ resources:
   type: git
   source:
     uri: https://github.com/pivotal-cf/pcf-prometheus-pipeline.git
-    branch: prometheus-v22
+    branch: master
 - name: prometheus-release-git
   type: git
   source:
