@@ -10,6 +10,8 @@ touch migration/empty.yml
 
 login_to_director pcf-bosh-creds
 
+set +e
+
 # check if a previous deployment exists
 bosh2 -n deployments | grep -q "^${deployment_name} "
 
@@ -24,6 +26,8 @@ bosh2 -n -d ${deployment_name} vms | grep -q 'prometheus/'
 if [ $? != 0 ]; then
   exit 0
 fi
+
+set -e
 
 # Prometheus v1 job exists; add migration ops file
 cp prometheus-release-git/manifests/operators/migrations/migrate_from_prometheus_1.yml migration/
