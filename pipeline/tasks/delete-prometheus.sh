@@ -11,7 +11,7 @@ source ${root_dir}/tasks/common.sh
 login_to_director pcf-bosh-creds ${director_for_deployment}
 
 echo "Deleting ${deployment} deployment"
-bosh2 delete-deployment -d ${deployment} --non-interactive
+bosh delete-deployment -d ${deployment} --non-interactive
 
 login_to_cf_uaa
 
