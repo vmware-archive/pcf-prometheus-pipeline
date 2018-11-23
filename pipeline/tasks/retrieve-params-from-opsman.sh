@@ -15,6 +15,7 @@ CURL="om --target https://${opsman_url} -k \
   curl"
 
 cf_id=$($CURL --path=/api/v0/deployed/products | jq -r '.[] | select(.type == "cf") | .guid')
+echo "cf_id: ${cf_id}" >> ${PARAMS_FILE}
 
 $CURL --path=/api/v0/deployed/products/$cf_id/manifest > /tmp/cf-manifest.yml
 
