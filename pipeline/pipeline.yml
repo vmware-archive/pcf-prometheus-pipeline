@@ -44,6 +44,8 @@ resources:
     external_bosh_ca_cert: ((external_bosh_ca_cert))
 - name: bosh-deployment
   type: bosh-deploy
+  source:
+    skip_check: true
 
 jobs:
 - name: create-uaa-clients
@@ -104,6 +106,7 @@ jobs:
       - pcf-prometheus-pipeline/pcf-cloud-config-ops.yml
       - pcf-prometheus-pipeline/pcf-colocate-firehose_exporter.yml
       - pcf-prometheus-pipeline/pcf-local-cf_exporter.yml
+      - pcf-prometheus-pipeline/pcf-route-registrar-ops.yml
       vars:
         network: ((deploy_network))
         azs: ((deploy_azs))

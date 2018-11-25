@@ -1,0 +1,74 @@
+# Add routing release
+- type: replace
+  path: /releases/-
+  value:
+    name: "routing"
+    version: "0.183.0"
+    url: "https://bosh.io/d/github.com/cloudfoundry-incubator/cf-routing-release?v=0.183.0"
+    sha1: "92d7a81cddab5d26764c51d9dbb2baece1fbe3e6"
+
+# Routing release depends on bpm (BOSH process manager) release
+- type: replace
+  path: /releases/-
+  value:
+    name: "bpm"
+    version: "1.0.0"
+    url: "https://bosh.io/d/github.com/cloudfoundry-incubator/bpm-release?v=1.0.0"
+    sha1: "42b95d4a0d6d15dd0b0ead62418ffb56208e2307"
+
+# Add bpm addon
+- type: replace
+  path: /addons?/-
+  value:
+    name: bpm
+    jobs:
+    - name: bpm
+      release: bpm
+
+# Alertmanager URL
+- type: replace
+  path: /instance_groups/name=alertmanager/jobs/name=alertmanager/properties/alertmanager/web?/external_url
+  value: https://alertmanager.((system_domain))
+
+# Prometheus URL
+- type: replace
+  path: /instance_groups/name=prometheus2/jobs/name=prometheus2/properties/prometheus/web?/external_url
+  value: https://prometheus-backend.((system_domain))
+
+# Grafana URL
+- type: replace
+  path: /instance_groups/name=grafana/jobs/name=grafana/properties/grafana/server?/root_url
+  value: https://prometheus.((system_domain))
+
+- type: replace
+  path: /instance_groups/name=grafana/jobs/name=grafana/properties/grafana/prometheus?/tls_skip_verify
+  value: ((skip_ssl_verify))
+
+# Route Registrar
+- type: replace
+  path: /instance_groups/name=nginx/jobs/-
+  value:
+    name: route_registrar
+    release: routing
+    consumes:
+      nats:
+        from: nats
+        deployment: ((cf_id))
+    properties:
+      route_registrar:
+        routes:
+          - name: alertmanager
+            registration_interval: 20s
+            port: 9093
+            uris:
+              - alertmanager.((system_domain))
+          - name: prometheus-backend
+            registration_interval: 20s
+            port: 9090
+            uris:
+              - prometheus-backend.((system_domain))
+          - name: prometheus
+            port: 3000
+            registration_interval: 60s
+            uris:
+            - prometheus.((system_domain))
