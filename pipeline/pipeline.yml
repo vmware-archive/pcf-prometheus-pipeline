@@ -106,6 +106,7 @@ jobs:
       - pcf-prometheus-pipeline/pcf-cloud-config-ops.yml
       - pcf-prometheus-pipeline/pcf-colocate-firehose_exporter.yml
       - pcf-prometheus-pipeline/pcf-local-cf_exporter.yml
+      - pcf-prometheus-pipeline/pcf-local-retention-policy.yml
       # This can be enabled if deploying to opsman_bosh
       #- pcf-prometheus-pipeline/pcf-route-registrar-ops.yml
       vars:
