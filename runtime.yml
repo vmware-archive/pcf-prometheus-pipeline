@@ -7,6 +7,7 @@ addons:
   include:
     stemcell:
     - os: ubuntu-trusty
+    - os: ubuntu-xenial
   jobs:
   - name: node_exporter
     release: node-exporter
