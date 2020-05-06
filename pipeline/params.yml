@@ -6,6 +6,13 @@ pcf_opsman_admin_username:
 pcf_opsman_admin_password:
 opsman_url:
 
+# if you need to use a jumphost to connect to a BOSH Director, provide these details
+# (it is often the OpsManager VM)
+jumpbox_url:
+jumpbox_port:
+jumpbox_username:
+jumpbox_ssh_key:
+
 # Set to either opsman_bosh or external_bosh. For external BOSH you need to provide the details below
 director_for_deployment: opsman_bosh
 

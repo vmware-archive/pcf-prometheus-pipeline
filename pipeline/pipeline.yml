@@ -3,7 +3,7 @@ resource_types:
   type: docker-image
   source:
     repository: mkuratczyk/bosh-creds-resource
-    tag: 1.4
+    tag: 1.6
 - name: bosh-deploy
   type: docker-image
   source:
@@ -42,6 +42,10 @@ resources:
     external_bosh_client: ((external_bosh_client))
     external_bosh_client_secret: ((external_bosh_client_secret))
     external_bosh_ca_cert: ((external_bosh_ca_cert))
+    jumpbox_url: ((jumpbox_url))
+    jumpbox_port: ((jumpbox_port))
+    jumpbox_username: ((jumpbox_username))
+    jumpbox_ssh_key: ((jumpbox_ssh_key))
 - name: bosh-deployment
   type: bosh-deploy
   source:
