@@ -1,4 +1,4 @@
-# BOSH deployment name - anything you want
+# REQUIRED: BOSH deployment name - anything you want
 deployment_name: prometheus
 
 # REQUIRED: OpsManager URL and credentials
