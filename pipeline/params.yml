@@ -1,22 +1,23 @@
-# Deployment Name
+# BOSH deployment name - anything you want
 deployment_name: prometheus
 
-# Operations Manager credentials to set
+# REQUIRED: OpsManager URL and credentials
 pcf_opsman_admin_username:
 pcf_opsman_admin_password:
 opsman_url:
 
-# if you need to use a jumphost to connect to a BOSH Director, provide these details
+# OPTIONAL: if you need to use a jumphost to connect to a BOSH Director, provide these details
 # (it is often the OpsManager VM)
 jumpbox_url:
 jumpbox_port:
 jumpbox_username:
 jumpbox_ssh_key:
 
-# Set to either opsman_bosh or external_bosh. For external BOSH you need to provide the details below
+# REQUIRED: Set to either opsman_bosh or external_bosh. If set to "opsman_bosh", Prometheus deployment will be created with the BOSH Director managed by OpsMan.
+# If set to "external_bosh", Prometheus deployment will be created in whatever BOSH Director you specify with external_bosh_properties below.
 director_for_deployment: opsman_bosh
 
-# If you set director_for_deployment to external_bosh then you need to provide the Director details. Otherwise keep them empty
+# REQUIRED ONLY IF director_for_deployment is set to "external_bosh", otherwise leave empty.
 external_bosh_address:
 external_bosh_client:
 external_bosh_client_secret:
@@ -27,19 +28,20 @@ uaa_clients_firehose_exporter_secret:
 uaa_clients_cf_exporter_secret:
 uaa_bosh_exporter_client_secret:
 
-# This will be the admin password to log in to Grafana GUI
+# REQUIRED: This will be the admin password to log in to Grafana GUI
 grafana_admin_password:
-# This will be the admin password to log in to Prometheus GUI
+# REQUIRED: This will be the admin password to log in to Prometheus GUI
 prometheus_admin_password:
-# This will be the admin password to log in to Alertmanager GUI
+# REQUIRED: This will be the admin password to log in to Alertmanager GUI
 alertmanager_password:
 
-# AZ(s) to deploy to (as defined in the Director configuration)
+# REQUIRED: AZ(s) for the deployment (must match BOSH Director configuration)
 deploy_azs: [europe-west1-d]
-# network to deploy to (as defined in the Director configuration)
+# REQUIRED: network for the deployment (must match BOSH Director configuration)
 deploy_network: [{name: pcf-net}]
 
-# Github token to authenticate with Github. You can generate one at https://github.com/settings/tokens
+# OPTIONAL but RECOMMENDED: Github token to authenticate with Github. You can generate one at https://github.com/settings/tokens
+# If left empty, you will quickly exhaust the Github API calls limits.
 github_token:
 
 #
