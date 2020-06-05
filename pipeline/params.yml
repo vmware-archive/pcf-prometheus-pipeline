@@ -23,7 +23,7 @@ external_bosh_client:
 external_bosh_client_secret:
 external_bosh_ca_cert:
 
-# set to something very secure! you won't need to use these passwords at all
+# REQUIRED: set to something very secure! you won't need to use these passwords at all
 uaa_clients_firehose_exporter_secret:
 uaa_clients_cf_exporter_secret:
 uaa_bosh_exporter_client_secret:
